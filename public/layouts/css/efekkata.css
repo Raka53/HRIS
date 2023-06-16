@@ -1,0 +1,22 @@
+.cool-title {
+    font-size: 48px;
+    color: #0099ff;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .cool-title::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0%;
+    height: 2px;
+    background-color: #0099ff;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .cool-title:hover::after {
+    width: 100%;
+  }
