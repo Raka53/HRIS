@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\hrdController;
+use App\Http\Controllers\GajiController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,4 +25,12 @@ Route::get('/datakaryawan', function () {
 Route::get('/datakaryawan/form', function () {
     return view('hrd.form');
 });
+Route::get('/gaji', function () {
+    return view('gaji.index');
+});
+
 Route::resource('datakaryawanAjax', hrdController::class);
+
+
+Route::resource('gajiAjax', GajiController::class);
+

@@ -1,18 +1,17 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\hrd;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class hrd extends Model
+class gaji extends Model
 {
     use HasFactory;
-    public $table = "hrd";
+    public $table = "gaji";
     protected $guarded = ['id', 'timestamps'];
-    public function gaji()
+    public function hrd()
     {
-        return $this->hasOne(gaji::class);
+        return $this->belongsTo(hrd::class,'hrd_id');
     }
-
 }

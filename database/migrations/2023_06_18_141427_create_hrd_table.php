@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('hrd', function (Blueprint $table) {
+            $table->unsignedBigInteger('NIK')->unique();
             $table->id();
-            $table->string('NIK');
             $table->string('name');
             $table->string('gender');
             $table->date('joindate');
@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('status');
             $table->string('foto')->nullable();
             $table->timestamps();
+
         });
     }
 

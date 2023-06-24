@@ -32,7 +32,7 @@
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="/datakaryawan">Data Karyawan</a>
-                <a class="collapse-item" href="register.html">Gaji Karyawan</a>
+                <a class="collapse-item" href="{{ route('gajiAjax.index') }}">Gaji Karyawan</a>
                 <a class="collapse-item" href="forgot-password.html">DLL</a>
             </div>
         </div>

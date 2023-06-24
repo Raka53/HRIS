@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 use App\Models\hrd;
+use App\Models\gaji;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 class hrdController extends Controller
 {
     /**
@@ -37,7 +39,7 @@ class hrdController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'NIK' => 'required|numeric|digits:16|unique:hrd',     
+            'NIK' => 'required|numeric|digits:6|unique:hrd',     
             'name' => 'required',     
             'gender' => 'required',
             'joindate' => 'date',
@@ -55,7 +57,7 @@ class hrdController extends Controller
             'NIK.numeric' => 'NIK Harus Angka',
             'NIK.unique' => 'NIK Sudah Digunakan',
             'NIK.required' => 'NIK Harus Di Isi',
-            'NIK.digits' => 'NIK Harus Terdiri Dari 16 Karakter',
+            'NIK.digits' => 'NIK Harus Terdiri Dari 6 Karakter',
             'name.required' => 'Nama wajib disii',
             'location.required' => 'lokasi wajib disii',
         ]);
@@ -68,7 +70,7 @@ class hrdController extends Controller
         }
     
         hrd::create($validatedData);
-    
+        Alert::success('Success', 'Data karyawan berhasil ditambah.')->persistent(true);
         return redirect('/datakaryawan')->with('success', 'Data berhasil ditambahkan!');
     }
 
@@ -137,7 +139,7 @@ class hrdController extends Controller
             $data['foto'] = $fileName;
         }
         hrd::where('id', $id)->update($data);
-        
+        Alert::success('Success', 'Data gaji berhasil diperbarui.')->persistent(true);
         return redirect('/datakaryawan')->with('success', 'Data berhasil diperbarui!');
     }
 
@@ -146,6 +148,22 @@ class hrdController extends Controller
      */
     public function destroy(string $id)
     {
-       hrd::where('id', $id)->delete();
+      // Menghapus data dari tabel gaji
+      $gaji = gaji::where('hrd_id', $id)->delete();
+
+      // Menghapus data dari tabel hrd
+      $karyawan = hrd::find($id);
+      if ($karyawan) {
+          // Hapus foto jika ada
+          if ($karyawan->foto) {
+              Storage::disk('public')->delete('fotos/' . $karyawan->foto);
+          }
+          $karyawan->delete();
+  
+    
+          return response()->json(['message' => 'Data berhasil dihapus.']);
+      }
+  
+      return response()->json(['message' => 'Data tidak ditemukan.'], 404);
     }
 }

@@ -25,6 +25,9 @@
     <link href="{{ asset('layouts/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('layouts/css/button.css') }}" rel="stylesheet">
     <link href="{{ asset('layouts/css/efekkata.css') }}" rel="stylesheet">
+    <!-- Include SweetAlert CSS -->
+<link rel="stylesheet" href="{{ asset('vendor/sweetalert2/sweetalert2.min.css') }}">
+
 
 </head>
 
@@ -98,6 +101,7 @@
     </div>
 
    @include('template.script')
+   @include('sweetalert::alert')
 
 </body>
 

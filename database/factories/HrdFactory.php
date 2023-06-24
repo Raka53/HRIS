@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,29 +10,32 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class HrdFactory extends Factory
 {
-    /**
+    /**protected $model = Hrd::class;
+
      * Define the model's default state.
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    
+    public function definition()
     {
-        $gender = ['Male','Female'];
+        $gender = ['Male', 'Female'];
         $department = ['IT', 'Finance', 'Marketing', 'Sales', 'Technik', 'Office'];
-        $jobtitle = ['manager','staf'];
-        $status = ['Probahation', 'tetap'];
+        $jobtitle = ['Manager', 'Staff'];
+        $status = ['Probation', 'Permanent'];
+
         return [
-            'NIK' => fake()->nik(),
-            'name' => fake()->name(),
-            'gender' => $gender[rand(0,1)],
-            'joindate' => fake()->date(),
-            'location' => fake()->city,
-            'department' => $department[rand(0,5)],
-            
-            'joblevel' => fake()->jobTitle(),
-            'jobtitle' => $jobtitle[rand(0,1)],
-            'status' => $status[rand(0,1)]
-            
+            'NIK' => $this->faker->unique()->randomNumber(8), // Menghasilkan NIK acak dengan 8 digit
+            'name' => $this->faker->name,
+            'gender' => $this->faker->randomElement($gender),
+            'joindate' => $this->faker->date,
+            'location' => $this->faker->city,
+            'department' => $this->faker->randomElement($department),
+            'joblevel' => $this->faker->jobTitle,
+            'jobtitle' => $this->faker->randomElement($jobtitle),
+            'status' => $this->faker->randomElement($status),
+            'foto' => null,
         ];
+    
     }
 }

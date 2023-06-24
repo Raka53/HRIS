@@ -17,4 +17,5 @@
  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
  
 
- 
+ <!-- Include SweetAlert JS -->
+<script src="{{ asset('vendor/sweetalert2/sweetalert2.min.js') }}"></script>
