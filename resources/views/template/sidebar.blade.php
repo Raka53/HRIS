@@ -38,6 +38,16 @@
         </div>
     </li>
 
+    {{-- Register --}}
+    @auth
+    @if(auth()->user()->role == 'admin')
+    <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('register') }}">{{ __('Register User') }}</a>
+        </li>
+    @endif
+    @endauth
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
