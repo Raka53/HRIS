@@ -110,8 +110,9 @@
                                         <label for="status" class="col-md-4 col-form-label text-md-right">{{ __('Status') }}</label>
                                         <div class="col-md-8">
                                             <select class="form-control" name="status" id="status">
-                                                <option value="tetap" {{ $datakaryawan->status == 'tetap' ? 'selected' : '' }}>Tetap</option>
-                                                <option value="Probation" {{ $datakaryawan->status == 'Probation' ? 'selected' : '' }}>Probation</option>
+                                                <option value="tetap" {{ $datakaryawan->status_kry->status == 'tetap' ? 'selected' : '' }}>Tetap</option>
+                                                <option value="Probation" {{ $datakaryawan->status_kry->status == 'Probation' ? 'selected' : '' }}>Probation</option>
+                                                <option value="Probation" {{ $datakaryawan->status_kry->status == 'resign' ? 'selected' : '' }}>Resign</option>
                                             </select>
                                         </div>
                                     </div>

@@ -10,7 +10,7 @@
     <thead>
       <tr>
         <th>no</th>
-        <th>NIK</th>
+        <th>Status</th>
         <th>Name</th>
         <th>Gender</th>
         <th>Department</th>
@@ -40,7 +40,7 @@
       { data: 'gender', name: 'gender' },
       { data: 'department', name: 'department' },
       { data: 'jobtitle', name: 'jobtitle' },
-      { data: 'status', name: 'status' },
+      { data: 'status_kry.status', name: 'status_kry.status' },
       { data: 'aksi', name: 'aksi', orderable: false, searchable: false }
     ]
   });

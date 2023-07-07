@@ -14,7 +14,7 @@ class hrdController extends Controller
      */
     public function index()
     {
-        $data = hrd::orderBy('name','asc');
+        $data = hrd::orderBy('name','asc')->with('status_kry');
            
         return DataTables::of($data)
         ->addIndexColumn()
@@ -112,18 +112,6 @@ class hrdController extends Controller
             'location.required' => 'Lokasi wajib diisi',
         ]);
     
-        $data = [
-            'NIK' => $request->input('NIK'),
-            'name' => $request->input('name'),
-            'gender' => $request->input('gender'),
-            'joindate' => $request->input('joindate'),
-            'location' => $request->input('location'),
-            'department' => $request->input('department'),
-            'joblevel' => $request->input('joblevel'),
-            'jobtitle' => $request->input('jobtitle'),
-            'status' => $request->input('status'),
-            
-        ];
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
             $fileName = time() . '_' . $file->getClientOriginalName();
@@ -136,9 +124,10 @@ class hrdController extends Controller
             }
     
             // Update nama file foto pada database
-            $data['foto'] = $fileName;
+            $validatedData['foto'] = $fileName;
         }
-        hrd::where('id', $id)->update($data);
+    
+        hrd::find($id)->update($validatedData);
         Alert::success('Success', 'Data gaji berhasil diperbarui.')->persistent(true);
         return redirect('/datakaryawan')->with('success', 'Data berhasil diperbarui!');
     }

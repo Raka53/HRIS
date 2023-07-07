@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('hrd', function (Blueprint $table) {
-            $table->unsignedBigInteger('NIK')->unique();
+            $table->string('NIK')->unique();
+            $table->string('status_id');
             $table->id();
             $table->string('name');
             $table->string('gender');
@@ -21,7 +22,6 @@ return new class extends Migration
             $table->string('department');
             $table->string('joblevel');
             $table->string('jobtitle');
-            $table->string('status');
             $table->string('foto')->nullable();
             $table->timestamps();
 

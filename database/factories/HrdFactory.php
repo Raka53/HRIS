@@ -22,7 +22,7 @@ class HrdFactory extends Factory
         $gender = ['Male', 'Female'];
         $department = ['IT', 'Finance', 'Marketing', 'Sales', 'Technik', 'Office'];
         $jobtitle = ['Manager', 'Staff'];
-        $status = ['Probation', 'Permanent'];
+        
 
         return [
             'NIK' => $this->faker->unique()->randomNumber(8), // Menghasilkan NIK acak dengan 8 digit
@@ -33,7 +33,7 @@ class HrdFactory extends Factory
             'department' => $this->faker->randomElement($department),
             'joblevel' => $this->faker->jobTitle,
             'jobtitle' => $this->faker->randomElement($jobtitle),
-            'status' => $this->faker->randomElement($status),
+            'status_id' => $this->faker->randomElement([1, 2, 3]),
             'foto' => null,
         ];
     
