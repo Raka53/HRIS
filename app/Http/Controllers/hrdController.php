@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\hrd;
 use App\Models\gaji;
+use App\Models\status_kry;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Storage;
@@ -30,7 +31,8 @@ class hrdController extends Controller
      */
     public function create()
     {
-        return view('hrd.form');
+        $status = status_kry::all();
+        return view('hrd.form', compact('status'));
     }
 
     /**
@@ -128,8 +130,8 @@ class hrdController extends Controller
         }
     
         hrd::find($id)->update($validatedData);
-        Alert::success('Success', 'Data gaji berhasil diperbarui.')->persistent(true);
-        return redirect('/datakaryawan')->with('success', 'Data berhasil diperbarui!');
+        Alert::success('Success', 'Data Karyawan berhasil diperbarui.')->persistent(true);
+        return redirect('/datakaryawan');
     }
 
     /**

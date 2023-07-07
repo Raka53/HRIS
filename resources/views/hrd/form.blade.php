@@ -82,10 +82,16 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="status" class="form-label">{{ __('Status') }}</label>
-                            <select class="form-control select2" name="status" id="status" value="{{ old('status') }}">
-                                <option value="tetap">{{ __('Tetap') }}</option>
-                                <option value="Probation">{{ __('Probation') }}</option>
+                            <label for="status_id" class="form-label">{{ __('Status') }}</label>
+                            <select class="form-control select2" name="status_id" id="status_id" value="{{ old('status') }}">
+                                <option value="">Pilih Status</option>
+                                @foreach ($status as $item)
+                                    <option value="{{ $item->id }}">{{ $item->status }}</option>
+                                @endforeach
+                            </select>
+                            @error('hrd_id')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                             </select>
                         </div>
 
