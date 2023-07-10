@@ -38,6 +38,7 @@ class GajiController extends Controller
     {
         $karyawan = Hrd::whereDoesntHave('gaji')->get();
         return view('gaji.create', compact('karyawan'));
+        
     }
 
 
