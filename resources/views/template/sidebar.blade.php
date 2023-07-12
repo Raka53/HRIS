@@ -31,10 +31,10 @@
         <div id="collapsePages" class="collapse {{ Request::is('datakaryawan*','gajiAjax*') ? 'show' : '' }}" aria-labelledby="headingPages"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/datakaryawan">Data Karyawan</a>
-                {{-- @role('it') --}}
+                <a class="collapse-item" href="{{ route('datakaryawanAjax.index') }}">Data Karyawan</a>
+                @role('it|manager')
                 <a class="collapse-item" href="{{ route('gajiAjax.index') }}">Gaji Karyawan</a>
-                {{-- @endrole --}}
+                @endrole
                 <a class="collapse-item" href="forgot-password.html">DLL</a>
             </div>
         </div>

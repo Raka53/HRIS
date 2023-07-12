@@ -15,14 +15,7 @@ class hrdController extends Controller
      */
     public function index()
     {
-        $data = hrd::orderBy('name','asc')->with('status_kry');
-           
-        return DataTables::of($data)
-        ->addIndexColumn()
-        ->addColumn('aksi',function($data){
-            return view('hrd.tombol')->with('data', $data);
-        })
-        ->Make(true);
+      return view('hrd.index');
     }
     
 

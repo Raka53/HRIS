@@ -7,8 +7,7 @@ use App\Models\Hrd;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use RealRashid\SweetAlert\Facades\Alert;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
+
 
 class GajiController extends Controller
 {

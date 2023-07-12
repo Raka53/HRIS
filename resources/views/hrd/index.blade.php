@@ -34,7 +34,7 @@
   var table = $('#myTable').DataTable({
     serverSide: true,
     processing: true,
-    ajax: "{{ route('datakaryawanAjax.index') }}",
+    ajax: "{{ route('datakaryawan.datakry') }}",
     columns: [
       { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
       { data: 'NIK', name: 'NIK' },

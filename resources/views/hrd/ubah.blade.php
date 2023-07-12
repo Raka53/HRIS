@@ -121,10 +121,12 @@
     
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
+                                    @role('it')
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Update Data') }}
                                     </button>
-                                    <a href="/datakaryawan" class="btn btn-secondary">
+                                    @endrole
+                                    <a href="{{ route('datakaryawanAjax.index') }}" class="btn btn-secondary">
                                         {{ __('Kembali') }}
                                     </a>
                                 </div>
