@@ -1,10 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Spatie\Permission\Models\Role;
 
 class AuthController extends Controller
 {
@@ -40,15 +41,19 @@ class AuthController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'role' => ['required', 'string']
+            'role' => ['required', 'string', 'in:it,manager,spv,staff'],
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $credentials['name'],
             'email' => $credentials['email'],
             'password' => bcrypt($credentials['password']),
-            'role' => $credentials['role'],
         ]);
+
+        $role = Role::where('name', $credentials['role'])->first();
+
+        $user->assignRole($role);
+
         Alert::success('Success', 'Berhasil Registrasi.')->persistent(true);
         return redirect()->intended('/dashboard');
     }

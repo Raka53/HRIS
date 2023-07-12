@@ -5,7 +5,9 @@
 </div>
 
 <div class="table-responsive col-lg-12">
+  
   <a class="btn btn-primary mb-3 cool-button" href="{{ route('datakaryawanAjax.create') }}">Tambah Data</a>
+
   <table class="table table-bordered data-table" id="myTable">
     <thead>
       <tr>

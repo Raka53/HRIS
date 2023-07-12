@@ -19,16 +19,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         
-        User::factory(5)->create();
          hrd::factory(50)->create();
          status_kry::factory(3)->create();
          
-        
-        // \App\Models\User::factory(10)->create();
+         $this->call(UserRoleSeeder::class);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+      
     }
 }

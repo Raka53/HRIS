@@ -1,44 +1,54 @@
-<?php
-
+<?php 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\hrdController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\GajiController;
 use App\Http\Controllers\AuthController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+use App\Http\Controllers\TesController;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware('auth');
+})->middleware(['auth'])->name('dashboard');
+
 Route::get('/datakaryawan', function () {
     return view('hrd.index');
-})->middleware('auth');
-Route::get('/datakaryawan/form', function () {
-    return view('hrd.form');
-})->middleware('auth');
-Route::get('/gaji', function () {
-    return view('gaji.index');
-})->middleware('auth');
+})->middleware(['auth']);
 
-Route::resource('datakaryawanAjax', hrdController::class)->middleware('auth');
+Route::middleware(['auth'])->group(function () {
+    Route::resource('datakaryawanAjax', hrdController::class);
+    Route::middleware(['role:it'])->group(function () {
+        Route::get('/datakaryawanAjax/create', [HrdController::class, 'create'])->name('datakaryawanAjax.create');
+        Route::post('/datakaryawan', [HrdController::class, 'store'])->name('datakaryawan.store');
+    });
 
-
-Route::resource('gajiAjax', GajiController::class)->middleware('auth');
+  
+    Route::middleware(['role:it'])->group(function () {
+        Route::get('gajiAjax', [GajiController::class, 'index'])->name('gajiAjax.index');
+        Route::get('gajiAjax/create', [GajiController::class, 'create'])->name('gajiAjax.create');
+        Route::post('gajiAjax', [GajiController::class, 'store'])->name('gajiAjax.store');
+        Route::get('gajiAjax/{gajiAjax}/edit', [GajiController::class, 'edit'])->name('gajiAjax.edit');
+        Route::put('gajiAjax/{gajiAjax}', [GajiController::class, 'update'])->name('gajiAjax.update');
+        Route::delete('gajiAjax/{gajiAjax}', [GajiController::class, 'destroy'])->name('gajiAjax.destroy');
+    });
+    Route::middleware(['role:manager'])->group(function () {
+        Route::get('gajiAjax', [GajiController::class, 'index'])->name('gajiAjax.index');
+        Route::get('gajiAjax/create', [GajiController::class, 'create'])->name('gajiAjax.create');
+        Route::post('gajiAjax', [GajiController::class, 'store'])->name('gajiAjax.store');
+        Route::get('gajiAjax/{gajiAjax}/edit', [GajiController::class, 'edit'])->name('gajiAjax.edit');
+        Route::put('gajiAjax/{gajiAjax}', [GajiController::class, 'update'])->name('gajiAjax.update');
+        Route::delete('gajiAjax/{gajiAjax}', [GajiController::class, 'destroy'])->name('gajiAjax.destroy');
+    });
+});
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register')->middleware('auth');
-Route::post('/register', [AuthController::class, 'register'])->middleware('auth');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
