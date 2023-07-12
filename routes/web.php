@@ -4,6 +4,7 @@ use App\Http\Controllers\hrdController;
 use App\Http\Controllers\dataController;
 use App\Http\Controllers\GajiController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
 
 
 Route::get('/', function () {
@@ -18,6 +19,7 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('datakaryawan', [dataController::class, 'datakry'])->name('datakaryawan.datakry');
     Route::get('datakaryawanAjax', [hrdController::class, 'index'])->name('datakaryawanAjax.index');
+    Route::resource('adminController', AdminController::class);
 
     Route::middleware(['role:it'])->group(function () {
         Route::get('/datakaryawanAjax/create', [hrdController::class, 'create'])->name('datakaryawanAjax.create');

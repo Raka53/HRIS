@@ -44,7 +44,7 @@
     @role('it')
     <hr class="sidebar-divider">
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('register') }}">{{ __('Register User') }}</a>
+        <a class="nav-link" href="{{ route('adminController.index') }}">{{ __('Admin Controller') }}</a>
     </li>
     @endrole
 
