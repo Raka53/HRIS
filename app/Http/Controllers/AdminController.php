@@ -75,9 +75,12 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(string $id)
     {
-        $user = User::with('roles',$user)->delete();
+        $user = User::find($id);
+        if($user){
+            $user->delete();
+        }
 
     return response()->json(['success' => true]);
     }
