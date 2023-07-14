@@ -22,7 +22,7 @@
     <hr class="sidebar-divider">
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('datakaryawan*','gajiAjax*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('datakaryawan*','gajiAjax*','SewaKendaraan*') ? 'active' : '' }}">
         <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
             aria-controls="collapsePages">
             <i class="fas fa-fw fa-coffee"></i>
@@ -34,6 +34,7 @@
                 <a class="collapse-item" href="{{ route('datakaryawanAjax.index') }}">Data Karyawan</a>
                 @role('it|manager')
                 <a class="collapse-item" href="{{ route('gajiAjax.index') }}">Gaji Karyawan</a>
+                <a class="collapse-item" href="{{ route('SewaKendaraan.index') }}">Sewa Kendaraan</a>
                 @endrole
                 <a class="collapse-item" href="forgot-password.html">DLL</a>
             </div>
@@ -43,10 +44,11 @@
     {{-- Register --}}
     @role('it')
     <hr class="sidebar-divider">
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('adminController.index') }}">{{ __('Admin Controller') }}</a>
+    <li class="nav-item {{ Request::is('adminController*') ? 'active' : '' }}">
+        <a class="nav-link fas fa-wrench" href="{{ route('adminController.index') }}"> {{ __('Admin Controller') }}</a>
     </li>
     @endrole
+  
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

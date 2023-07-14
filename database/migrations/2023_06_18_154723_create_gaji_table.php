@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('hrd_id');
             $table->foreign('hrd_id')->references('id')->on('hrd');
+            $table->string('claim_id');
+            $table->string('status_id');
+            $table->string('sewa_id');
             $table->float('salary');
             $table->float('lembur');
             $table->float('transport');
