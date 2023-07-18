@@ -28,7 +28,7 @@
             <i class="fas fa-fw fa-coffee"></i>
             <span>HR</span>
         </a>
-        <div id="collapsePages" class="collapse {{ Request::is('datakaryawan*','gajiAjax*') ? 'show' : '' }}" aria-labelledby="headingPages"
+        <div id="collapsePages" class="collapse {{ Request::is('datakaryawan*','gajiAjax*', 'medical*') ? 'show' : '' }}" aria-labelledby="headingPages"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('datakaryawanAjax.index') }}">Data Karyawan</a>
@@ -36,7 +36,7 @@
                 <a class="collapse-item" href="{{ route('gajiAjax.index') }}">Gaji Karyawan</a>
                 <a class="collapse-item" href="{{ route('SewaKendaraan.index') }}">Sewa Kendaraan</a>
                 @endrole
-                <a class="collapse-item" href="forgot-password.html">DLL</a>
+                <a class="collapse-item" href="{{ route('medical.index') }}">Medical Claim</a>
             </div>
         </div>
     </li>

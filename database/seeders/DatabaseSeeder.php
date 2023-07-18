@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use App\Models\hrd;
 use App\Models\lembur;
+use App\Models\medical;
 use App\Models\status;
 use App\Models\status_kry;
 
@@ -21,7 +22,7 @@ class DatabaseSeeder extends Seeder
         
          hrd::factory(50)->create();
          status_kry::factory(3)->create();
-         
+         medical::factory(50)->create();
          $this->call(UserRoleSeeder::class);
 
       

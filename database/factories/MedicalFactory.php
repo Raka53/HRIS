@@ -17,7 +17,14 @@ class MedicalFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'hrd_id' => $this->faker->numberBetween(1, 50),
+            'date' => $this->faker->date,
+            'patient' => $this->faker->name,
+            'doctor_fee' => $this->faker->randomFloat(2, 100, 1000),
+            'obat' => $this->faker->randomFloat(2, 50, 500),
+            'kacamata' => $this->faker->randomFloat(2, 200, 1000),
+            'total' => $this->faker->randomFloat(2, 500, 2000),
+            'foto' => null, // Assuming the 'foto' field is optional
         ];
     }
 }

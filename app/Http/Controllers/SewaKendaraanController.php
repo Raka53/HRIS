@@ -39,7 +39,7 @@ class SewaKendaraanController extends Controller
      */
     public function create()
     {
-        $data = Hrd::all();
+        $data = Hrd::WheredoesntHave('sewa_kendaraan')->get();
         return view('sewakendaraan.create', compact('data'));
     }
 
@@ -78,17 +78,31 @@ class SewaKendaraanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(sewaKendaraan $sewaKendaraan)
+    public function edit($id)
     {
-        //
+        $sewaKendaraan = sewaKendaraan::findOrFail($id);
+        return view('sewakendaraan.edit', compact('sewaKendaraan'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatesewaKendaraanRequest $request, sewaKendaraan $sewaKendaraan)
+    public function update(Request $request, $id)
     {
-        //
+        $sewaKendaraan = sewaKendaraan::findOrFail($id);
+        $request->validate([
+            'jenis_kendaraan' => 'required',
+            'harga_sewa' => 'required|numeric|min:0',
+        ]);
+       
+        $sewaKendaraan->jenis_kendaraan = $request->jenis_kendaraan;
+        $sewaKendaraan->harga_sewa = $request->harga_sewa;
+    
+        $sewaKendaraan->save();
+    
+        Alert::success('Success', 'Data Sewa berhasil diperbarui.')->persistent(true);
+    
+        return redirect()->route('SewaKendaraan.index');
     }
 
     /**

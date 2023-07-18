@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('sewa_kendaraan', function (Blueprint $table) {
             $table->id();
-            $table->string('hrd_id');
+            $table->unsignedBigInteger('hrd_id');
+            $table->foreign('hrd_id')->references('id')->on('hrd');
             $table->string('jenis_kendaraan');
             $table->float('harga_sewa');
             $table->timestamps();

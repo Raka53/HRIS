@@ -1,7 +1,7 @@
 @extends('template.main')
 @section('content')
 <div class="d-flex justify-content-center align-items-center">
-  <h1 class="text-center cool-title">Test table</h1>
+  <h1 class="text-center cool-title">Data Karyawan</h1>
 </div>
 
 <div class="table-responsive col-lg-12">
@@ -12,7 +12,7 @@
     <thead>
       <tr>
         <th>no</th>
-        <th>Status</th>
+        <th>NIK</th>
         <th>Name</th>
         <th>Gender</th>
         <th>Department</th>

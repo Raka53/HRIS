@@ -11,12 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('medical_claims', function (Blueprint $table) {
+        Schema::create('medical_claim', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('hrd_id');
             $table->foreign('hrd_id')->references('id')->on('hrd');
             $table->date('date');
-            $table->string('month');
+            $table->string('patient');
+            $table->string('doctor_fee')->nullable(0);
+            $table->string('obat')->nullable(0);
+            $table->string('kacamata')->nullable(0);
+            $table->float('Total')->nullable(0);
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
 
@@ -28,7 +33,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('medical_claims');
+        Schema::dropIfExists('medical_claim');
         
     }
 };
