@@ -34,13 +34,13 @@
             var table = $('#myTable').DataTable({
                 serverSide: true,
                 processing: true,
-                ajax: "{{ route('medical.index') }}",
+                ajax: "{{ route('datakaryawan.datakry') }}",
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
-                    { data: 'hrd.NIK', name: 'NIK' },
-                    { data: 'hrd.name', name: 'name' },
-                    { data: 'hrd.gender', name: 'gender' },
-                    { data: 'hrd.department', name: 'department' },
+                    { data: 'NIK', name: 'NIK' },
+                    { data: 'name', name: 'name' },
+                    { data: 'gender', name: 'gender' },
+                    { data: 'department', name: 'department' },
                     { data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center' }
                 ]
             });

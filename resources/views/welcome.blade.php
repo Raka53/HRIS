@@ -45,6 +45,9 @@
             <div id="clock">
                 <!-- Menampilkan jam menggunakan JavaScript -->
             </div>
+            <div id="date">
+              <!-- Menampilkan tanggal menggunakan JavaScript -->
+          </div>
         </div>
     </div>
 

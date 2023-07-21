@@ -152,6 +152,13 @@
         font-size: 48px;
         color: #ffffff;
     }
+    #date {
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        font-size: 24px;
+        color: #ffffff;
+    }
     .submit_button {
         padding: 10px 20px;
         font-size: 18px;

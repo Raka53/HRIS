@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\hrd;
+use App\Models\medical;
 use App\Models\gaji;
 use App\Models\status_kry;
 use Illuminate\Http\Request;
@@ -22,8 +23,12 @@ class dataController extends Controller
         ->addColumn('aksi',function($data){
             return view('hrd.tombol')->with('data', $data);
         })
+        ->addColumn('action', function ($data) {
+            return view('medical.tombol')->with('data', $data);
+        })
         ->Make(true);
     }
+
 
     
 }

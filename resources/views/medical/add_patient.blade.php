@@ -2,13 +2,21 @@
 
 @section('content')
     <div class="container">
-        <h1>Add Patient to Medical Claim</h1>
+        <h1>Add Patient to Medical Claim {{ $id->name }}</h1>
 
-        <form action="{{ route('medical.store_patient', $medicalClaim->id) }}" method="POST">
+        <form action="{{ route('medical.store') }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="patient_name">Patient Name</label>
-                <input type="text" name="patient_name" id="patient_name" class="form-control" required>
+              
+                <input type="hidden" name="hrd_id" id="hrd_id" class="form-control"  value="{{ $id->id }}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="patient">Patient Name</label>
+                <input type="text" name="patient" id="patient" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="date">Claim Date</label>
+                <input type="date" name="date" id="date" class="form-control" required>
             </div>
             <div class="form-group">
                 <label for="doctor_fee">Doctor Fee</label>
@@ -23,8 +31,7 @@
                 <input type="number" name="kacamata" id="kacamata" class="form-control" required>
             </div>
             <button type="submit" class="btn btn-primary">Add Patient</button>
+            <a href="{{ url()->previous() }}" class="btn btn-secondary">Back</a>
         </form>
     </div>
-   
-
 @endsection

@@ -18,36 +18,38 @@ Route::get('/dashboard', function () {
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('datakaryawan', [dataController::class, 'datakry'])->name('datakaryawan.datakry');
-   
-    Route::get('datakaryawanAjax', [hrdController::class, 'index'])->name('datakaryawanAjax.index');
-    
-  
-  
-    Route::post('medical/{id}/store-patient', [MedicalController::class, 'storePatient'])->name('medical.store_patient');
-    Route::get('medical/{id}/add-patient', [MedicalController::class, 'create'])->name('medical.create_patient');
-
-
-
-
-
-
-    Route::resource('adminController', AdminController::class);
-    Route::resource('SewaKendaraan', SewaKendaraanController::class);
     Route::resource('medical', MedicalController::class);
+    
+    
 
-
-    Route::middleware(['role:it'])->group(function () {
+        Route::get('datakaryawan', [dataController::class, 'datakry'])->name('datakaryawan.datakry');
+        Route::get('medical/detail/{medical}/data', [MedicalController::class, 'getMedicalData'])
+    ->name('medical.detail.data');
+       
+        Route::get('datakaryawanAjax', [hrdController::class, 'index'])->name('datakaryawanAjax.index');
+        
+      
+      
+        
+        Route::get('medical/{id}/add-patient', [MedicalController::class, 'create'])->name('medical.create_patient');
+    
+    
+    
+    
+    
+    
+        Route::resource('adminController', AdminController::class);
+        Route::resource('SewaKendaraan', SewaKendaraanController::class);
         Route::get('/datakaryawanAjax/create', [hrdController::class, 'create'])->name('datakaryawanAjax.create');
         Route::post('datakaryawanAjax', [hrdController::class, 'store'])->name('datakaryawanAjax.store');
         
         Route::patch('datakaryawanAjax/{id}', [hrdController::class, 'update'])->name('datakaryawanAjax.update');
         Route::delete('datakaryawanAjax/{id}', [hrdController::class, 'destroy'])->name('datakaryawanAjax.destroy');
-    });
+  
 
-    Route::middleware(['role:spv|it|manager'])->group(function () {
+   
         Route::get('datakaryawanAjax/{id}/edit', [HrdController::class, 'edit'])->name('datakaryawanAjax.edit');
-    });
+   
 
   
     Route::middleware(['role:it|manager'])->group(function () {

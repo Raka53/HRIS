@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="container">
-        <h1>Medical Claim Detail {{ $medicalClaim->hrd->name }}</h1>
+        <h1>Medical Claim Detail {{ $medical->name }}</h1>
         <br>
         <div class="row">
             <div class="col-md-12">
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="medicalClaimTable">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -19,39 +19,77 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($medicalClaim->patients as $index => $patient)
-                            <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $patient->patient }}</td>
-                                <td>{{ $patient->date }}</td>
-                                <td>{{ $patient->doctor_fee }}</td>
-                                <td>{{ $patient->obat }}</td>
-                                <td>{{ $patient->kacamata }}</td>
-                                <td>{{ $patient->doctor_fee + $patient->obat + $patient->kacamata }}</td>
-                                <td>
-                                    <button class="btn btn-danger btn-sm" onclick="deletePatient({{ $patient->id }})">
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
                 </table>
             </div>
         </div>
         <div class="text-center">
-            <a href="{{ route('medical.create_patient', ['id' => $medicalClaim->id]) }}" class="btn btn-primary">Add Patient</a>
-
+            <a href="{{ route('medical.create_patient', ['id' => $medical->id]) }}" class="btn btn-primary">Add Patient</a>
+            <a href="{{ route('medical.index') }}" class="btn btn-secondary">Back</a>
         </div>
     </div>
 
-    <!-- Script for handling the delete patient -->
+    <script src="{{ asset('js/jquery2.js') }}"></script>
+    
     <script>
-        function deletePatient(patientId) {
-            // You can implement the delete functionality using AJAX here.
-            // For now, let's just show an alert.
-            alert('Delete patient with ID: ' + patientId);
-        }
+        $(document).ready(function() {
+            $('#medicalClaimTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('medical.detail.data', $medical->id) }}",
+                columns: [
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                    { data: 'patient', name: 'patient' },
+                    { data: 'date', name: 'date' },
+                    { data: 'doctor_fee', name: 'doctor_fee' },
+                    { data: 'obat', name: 'obat' },
+                    { data: 'kacamata', name: 'kacamata' },
+                    { data: 'total', name: 'total' },
+                    { data: 'action', name: 'action', orderable: false, searchable: false },
+                ],
+            });
+
+            // Handling the delete button click using SweetAlert
+            $('#medicalClaimTable').on('click', '.btn-danger', function() {
+                var id = $(this).data('id');
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "{{ route('medical.destroy', ':id') }}".replace(':id', id),
+                            type: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(data) {
+                                $('#medicalClaimTable').DataTable().ajax.reload();
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success',
+                                    text: 'Data has been deleted!',
+                                    showConfirmButton: false,
+                                    timer: 1500 // Duration for the toast
+                                });
+                            },
+                            error: function(xhr) {
+                                console.log(xhr.responseText);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Something went wrong!',
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+        });
     </script>
 @endsection

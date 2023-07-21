@@ -23,7 +23,19 @@ $(".input_text").focusout(function(){
     
     // Memperbarui jam setiap detik
     setTimeout(updateClock, 1000);
+    
+}
+function displayDate() {
+    var currentDate = new Date();
+    var year = currentDate.getFullYear();
+    var month = currentDate.getMonth() + 1;
+    var day = currentDate.getDate();
+    var dateString = day + '-' + month + '-' + year;
+    document.getElementById('date').textContent = dateString;
 }
 
 // Memanggil fungsi updateClock saat halaman dimuat
-window.onload = updateClock;
+window.onload = function () {
+    updateClock();
+    displayDate();
+};

@@ -17,17 +17,7 @@ class MedicalController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->ajax()) {
-            $data = medical::with('hrd')->get();
-            return DataTables::of($data)
-                ->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                    return view('medical.tombol')->with('data', $row);
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-    
+      
             return view('medical.index');
         
     
@@ -37,45 +27,72 @@ class MedicalController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create($id)
+    public function create(hrd $id)
     {
-        $medicalClaim = medical::findOrFail($id);
-        return view('medical.add_patient', compact('medicalClaim'));
+        $medicalClaim = medical::where('hrd_id', $id->id)->get();
+   
+        return view('medical.add_patient', compact('medicalClaim','id'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoremedicalRequest $request, $id)
+    public function store(Request $request)
     {
-        $medicalClaim = medical::findOrFail($id);
+      
         
-        // Validate the request data
-        $validatedData = $request->validate([
-            'patient_name' => 'required|string|max:255',
-            'doctor_fee' => 'required|numeric',
-            'obat' => 'required|numeric',
-            'kacamata' => 'required|numeric',
+        $request->validate([
+            'hrd_id' => 'required',
+            'patient' => 'required',
+            'date' => 'required|date',
+            'doctor_fee' => 'required|numeric|min:0',
+            'obat' => 'required|numeric|min:0',
+            'kacamata' => 'required|numeric|min:0',
+        
         ]);
+        $total = ( $request->doctor_fee + $request->obat + $request->kacamata);
+        medical::create([
+        'hrd_id' => $request->hrd_id,
+        'patient' => $request->patient,
+        'date' => $request->date,
+        'doctor_fee' => $request->doctor_fee,
+        'obat' => $request->obat,
+        'kacamata' => $request->kacamata,
+        'Total' => $total
+       
+        ]);
+    
+        Alert::success('Success', 'Data berhasil ditambah.')->persistent(true);
 
-        // Create a new patient
-        $medicalClaim->patients()->create($validatedData);
-
-        // Optionally, add a success message
-        Alert::success('Patient added successfully!');
-        return redirect()->route('medical.show', $medicalClaim->id);
+        return redirect()->route('medical.show', $request->hrd_id);
     }
     
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-        {
-            $medicalClaim = medical::findOrFail($id);
-            return view('medical.detail', compact('medicalClaim'));
+    public function show(hrd $medical)
+        { 
+           
+            return view('medical.detail', compact('medical'));
         }
 
+
+        public function getMedicalData(hrd $medical)
+        {
+            $medicalClaim = medical::where('hrd_id', $medical->id)->get();
+            
+            return DataTables::of($medicalClaim)
+                ->addIndexColumn()
+                ->addColumn('total', function ($row) {
+                    return $row->doctor_fee + $row->obat + $row->kacamata;
+                })
+                ->addColumn('action', function ($row) {
+                    return '<button class="btn btn-danger btn-sm tombol-del" data-id="' . $row->id . '">Delete</button>';
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     
     
 
@@ -98,8 +115,15 @@ class MedicalController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(medical $medical)
+    public function destroy($id)
     {
-        //
+        try {
+            $medicalClaim = medical::findOrFail($id);
+            $medicalClaim->delete();
+    
+            return response()->json(['success' => true, 'message' => 'Patient deleted successfully!']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Failed to delete patient.']);
+        }
     }
 }
