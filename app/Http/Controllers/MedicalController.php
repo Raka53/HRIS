@@ -7,6 +7,7 @@ use App\Models\hrd;
 use App\Http\Requests\StoremedicalRequest;
 use App\Http\Requests\UpdatemedicalRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -20,7 +21,6 @@ class MedicalController extends Controller
       
             return view('medical.index');
         
-    
     }
   
 
@@ -43,23 +43,35 @@ class MedicalController extends Controller
         
         $request->validate([
             'hrd_id' => 'required',
+            'status_id' => 'required',
             'patient' => 'required',
             'date' => 'required|date',
+            'date_claim' => 'required',
             'doctor_fee' => 'required|numeric|min:0',
             'obat' => 'required|numeric|min:0',
             'kacamata' => 'required|numeric|min:0',
-        
+            'foto' => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf|max:2048',
+            'total' => 'required',
         ]);
-        $total = ( $request->doctor_fee + $request->obat + $request->kacamata);
+        
+       
+         $filePath = null; 
+            if ($request->hasFile('foto')) {
+                $file = $request->file('foto');
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                $filePath = $file->storeAs('public/medical', $fileName);
+            }
         medical::create([
         'hrd_id' => $request->hrd_id,
+        'status_id' => $request->status_id,
         'patient' => $request->patient,
+        'date_claim' => $request->date_claim,
         'date' => $request->date,
         'doctor_fee' => $request->doctor_fee,
         'obat' => $request->obat,
         'kacamata' => $request->kacamata,
-        'Total' => $total
-       
+        'Total' => $request->total,
+        'foto' => $filePath,
         ]);
     
         Alert::success('Success', 'Data berhasil ditambah.')->persistent(true);
@@ -88,7 +100,9 @@ class MedicalController extends Controller
                     return $row->doctor_fee + $row->obat + $row->kacamata;
                 })
                 ->addColumn('action', function ($row) {
-                    return '<button class="btn btn-danger btn-sm tombol-del" data-id="' . $row->id . '">Delete</button>';
+                    $editButton = '<a href="' . route('medical.edit', $row->id) . '" class="btn btn-primary btn-sm">Edit</a>';
+                    $deleteButton = '<button class="btn btn-danger btn-sm tombol-del" data-id="' . $row->id . '">Delete</button>';
+                    return $editButton . ' ' . $deleteButton;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
@@ -101,7 +115,7 @@ class MedicalController extends Controller
      */
     public function edit(medical $medical)
     {
-        
+        return view('medical.edit', compact('medical'));
     }
 
     /**
@@ -109,7 +123,61 @@ class MedicalController extends Controller
      */
     public function update(UpdatemedicalRequest $request, medical $medical)
     {
-        //
+        $request->validate([
+            'hrd_id' => 'required',
+            'status_id' => 'required',
+            'patient' => 'required',
+            'date' => 'required|date',
+            'date_claim' => 'required',
+            'doctor_fee' => 'required|numeric|min:0',
+            'obat' => 'required|numeric|min:0',
+            'kacamata' => 'required|numeric|min:0',
+            'foto' => 'nullable|file|mimes:jpeg,png,jpg,gif,pdf|max:2048',
+            'total' => 'required'
+        ]);
+    
+       
+       
+    
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = $file->storeAs('public/medical', $fileName);
+    
+            // Hapus foto lama jika ada
+            if ($medical->foto) {
+                Storage::disk('public')->delete('medical/' . $medical->foto);
+            }
+    
+            $medical->update([
+                'hrd_id' => $request->hrd_id,
+                'status_id' => $request->status_id,
+                'patient' => $request->patient,
+                'date_claim' => $request->date_claim,
+                'date' => $request->date,
+                'doctor_fee' => $request->doctor_fee,
+                'obat' => $request->obat,
+                'kacamata' => $request->kacamata,
+                'Total' => $request->total,
+                'foto' => $filePath,
+            ]);
+        } else {
+            $medical->update([
+                'hrd_id' => $request->hrd_id,
+                'status_id' => $request->status_id,
+                'patient' => $request->patient,
+                'date_claim' => $request->date_claim,
+                'date' => $request->date,
+                'doctor_fee' => $request->doctor_fee,
+                'obat' => $request->obat,
+                'kacamata' => $request->kacamata,
+                'Total' => $request->total,
+            ]);
+        }
+    
+        Alert::success('Success', 'Data berhasil diupdate.')->persistent(true);
+    
+        return redirect()->route('medical.show', $medical->hrd_id);
     }
 
     /**
