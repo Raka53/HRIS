@@ -35,11 +35,10 @@ class GajiController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        $karyawan = Hrd::whereDoesntHave('gaji')->get();
-        return view('gaji.create', compact('karyawan'));
-        
+        $hrd = Hrd::findOrFail($request->hrd_id);
+        return view('gaji.create', compact('hrd'));
     }
 
 
@@ -50,25 +49,45 @@ class GajiController extends Controller
     {
         $request->validate([
             'hrd_id' => 'required',
+            'status_id' => 'required',
             'salary' => 'required|numeric|min:0',
             'lembur' => 'required|numeric|min:0',
             'transport' => 'required|numeric|min:0',
             'meals' => 'required|numeric|min:0',
+            'start_date_medical' => 'required|date',
+            'end_date_medical' => 'required|date|after_or_equal:start_date_medical',
         ]);
 
+        $status = $request->input('status_id');
+
+        // If the status is probation (status_id = 2), calculate 80% of the salary
+        $salary = ($status == 2) ? ($request->input('salary') * 0.8) : $request->input('salary');
+
+        // Get the total medical claim for the HRD within the specified date range
+        $start_date_medical = $request->input('start_date_medical');
+        $end_date_medical = $request->input('end_date_medical');
+
+        $medicalClaimTotal = Hrd::findOrFail($request->input('hrd_id'))
+            ->medical()
+            ->whereBetween('date_claim', [$start_date_medical, $end_date_medical])
+            ->sum('Total');
+
         $gaji = new Gaji;
-        $gaji->hrd_id = $request->hrd_id;
-        $gaji->salary = $request->salary;
-        $gaji->lembur = $request->lembur;
-        $gaji->transport = $request->transport;
-        $gaji->meals = $request->meals;
-        $gaji->total = $request->salary + $request->lembur + $request->transport + $request->meals;
+        $gaji->hrd_id = $request->input('hrd_id');
+        $gaji->status_id = $status;
+        $gaji->salary = $salary;
+        $gaji->lembur = $request->input('lembur');
+        $gaji->medical_claim = $medicalClaimTotal;
+        $gaji->transport = $request->input('transport');
+        $gaji->meals = $request->input('meals');
+        $gaji->total = $salary + $request->input('lembur') + $medicalClaimTotal + $request->input('transport') + $request->input('meals');
         $gaji->save();
 
         Alert::success('Success', 'Data gaji berhasil ditambah.')->persistent(true);
 
         return redirect()->route('gajiAjax.index');
-    }
+        }
+    
 
     /**
      * Display the specified resource.
@@ -93,24 +112,44 @@ class GajiController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'status_id' => 'required',
             'salary' => 'required|numeric|min:0',
             'lembur' => 'required|numeric|min:0',
             'transport' => 'required|numeric|min:0',
             'meals' => 'required|numeric|min:0',
+            'start_date_medical' => 'required|date',
+            'end_date_medical' => 'required|date|after_or_equal:start_date_medical',
         ]);
 
+        $status = $request->input('status_id');
+
+        // If the status is probation (status_id = 2), calculate 80% of the salary
+        $salary = ($status == 2) ? ($request->input('salary') * 0.8) : $request->input('salary');
+
+        // Get the total medical claim for the HRD within the specified date range
+        $start_date_medical = $request->input('start_date_medical');
+        $end_date_medical = $request->input('end_date_medical');
+
+        $medicalClaimTotal = Hrd::findOrFail($request->input('hrd_id'))
+            ->medical()
+            ->whereBetween('date_claim', [$start_date_medical, $end_date_medical])
+            ->sum('Total');
+
         $gaji = Gaji::findOrFail($id);
-        $gaji->salary = $request->salary;
-        $gaji->lembur = $request->lembur;
-        $gaji->transport = $request->transport;
-        $gaji->meals = $request->meals;
-        $gaji->total = $request->salary + $request->lembur + $request->transport + $request->meals;
+        $gaji->status_id = $status;
+        $gaji->salary = $salary;
+        $gaji->lembur = $request->input('lembur');
+        $gaji->medical_claim = $medicalClaimTotal;
+        $gaji->transport = $request->input('transport');
+        $gaji->meals = $request->input('meals');
+        $gaji->total = $salary + $request->input('lembur') + $medicalClaimTotal + $request->input('transport') + $request->input('meals');
         $gaji->save();
 
         Alert::success('Success', 'Data gaji berhasil diperbarui.')->persistent(true);
 
         return redirect()->route('gajiAjax.index');
     }
+    
 
     /**
      * Remove the specified resource from storage.

@@ -12,6 +12,7 @@
                             <th>No</th>
                             <th>Patient Name</th>
                             <th>Claim Date</th>
+                            <th>Date</th>
                             <th>Doctor Fee</th>
                             <th>Obat</th>
                             <th>Kacamata</th>
@@ -39,11 +40,12 @@
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                     { data: 'patient', name: 'patient' },
+                    { data: 'date_claim', name: 'date_claim' },
                     { data: 'date', name: 'date' },
                     { data: 'doctor_fee', name: 'doctor_fee' },
                     { data: 'obat', name: 'obat' },
                     { data: 'kacamata', name: 'kacamata' },
-                    { data: 'total', name: 'total' },
+                    { data: 'Total', name: 'total' },
                     { data: 'action', name: 'action', orderable: false, searchable: false },
                 ],
             });

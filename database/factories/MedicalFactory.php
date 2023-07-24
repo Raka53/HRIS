@@ -16,8 +16,10 @@ class MedicalFactory extends Factory
      */
     public function definition(): array
     {
+        
         return [
             'hrd_id' => $this->faker->numberBetween(1, 50),
+            'date_claim' => $this->faker->date,
             'date' => $this->faker->date,
             'patient' => $this->faker->name,
             'doctor_fee' => $this->faker->randomFloat(2, 100, 1000),

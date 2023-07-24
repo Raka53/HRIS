@@ -22,21 +22,21 @@
     <hr class="sidebar-divider">
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('datakaryawan*','gajiAjax*','SewaKendaraan*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('datakaryawan*','gajiAjax*', 'medical*','SewaKendaraan*') ? 'active' : '' }}">
         <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
             aria-controls="collapsePages">
             <i class="fas fa-fw fa-coffee"></i>
             <span>HR</span>
         </a>
-        <div id="collapsePages" class="collapse {{ Request::is('datakaryawan*','gajiAjax*', 'medical*') ? 'show' : '' }}" aria-labelledby="headingPages"
+        <div id="collapsePages" class="collapse {{ Request::is('datakaryawan*','gajiAjax*', 'medical*', 'SewaKendaraan*') ? 'show' : '' }}" aria-labelledby="headingPages"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('datakaryawanAjax.index') }}">Data Karyawan</a>
                 @role('it|manager')
                 <a class="collapse-item" href="{{ route('gajiAjax.index') }}">Gaji Karyawan</a>
                 <a class="collapse-item" href="{{ route('SewaKendaraan.index') }}">Sewa Kendaraan</a>
-                @endrole
                 <a class="collapse-item" href="{{ route('medical.index') }}">Medical Claim</a>
+                @endrole
             </div>
         </div>
     </li>

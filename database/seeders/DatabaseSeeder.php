@@ -22,7 +22,6 @@ class DatabaseSeeder extends Seeder
         
          hrd::factory(50)->create();
          status_kry::factory(3)->create();
-         medical::factory(50)->create();
          $this->call(UserRoleSeeder::class);
 
       

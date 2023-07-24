@@ -14,4 +14,9 @@ class gaji extends Model
     {
         return $this->belongsTo(hrd::class,'hrd_id');
     }
+    public function status_kry()
+    {
+        return $this->belongsTo(status_kry::class, 'status_id');
+    }
+   
 }

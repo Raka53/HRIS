@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('sewa_id');
             $table->float('salary');
             $table->float('lembur');
+            $table->float('medical_claim');
             $table->float('transport');
             $table->float('meals');
             $table->float('total')->default(0);

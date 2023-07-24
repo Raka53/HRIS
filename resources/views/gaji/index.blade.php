@@ -21,6 +21,7 @@
                     <th>Gapok</th>
                     <th>Lembur</th>
                     <th>Transport</th>
+                    <th>Medical CLaim</th>
                     <th>Meals</th>
                     <th>Total</th>
                     <th class="text-center">Aksi</th>
@@ -43,6 +44,7 @@
                     { data: 'salary', name: 'salary' },
                     { data: 'lembur', name: 'lembur' },
                     { data: 'transport', name: 'transport' },
+                    { data: 'medical_claim', name: 'medical_claim' },
                     { data: 'meals', name: 'meals' },
                     { data: 'total', name: 'total' },
                     { data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center' }

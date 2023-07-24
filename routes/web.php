@@ -18,24 +18,28 @@ Route::get('/dashboard', function () {
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::resource('medical', MedicalController::class);
+        Route::get('medical', [MedicalController::class, 'index'])->name('medical.index'); // Add this line
+        Route::get('medical/{medical}', [MedicalController::class, 'show'])->name('medical.show');
+    // Add patient to medical claim
+    Route::get('medical/{id}/add-patient', [MedicalController::class, 'create'])->name('medical.create_patient');
+    Route::post('medical', [MedicalController::class, 'store'])->name('medical.store');
+    Route::get('medical/{medical}/edit', [MedicalController::class, 'edit'])->name('medical.edit');
+    Route::put('medical/{medical}', [MedicalController::class, 'update'])->name('medical.update');
+    Route::delete('medical/{medical}', [MedicalController::class, 'destroy'])->name('medical.destroy');
     
-    
-
-        Route::get('datakaryawan', [dataController::class, 'datakry'])->name('datakaryawan.datakry');
-        Route::get('medical/detail/{medical}/data', [MedicalController::class, 'getMedicalData'])
-    ->name('medical.detail.data');
-       
-        Route::get('datakaryawanAjax', [hrdController::class, 'index'])->name('datakaryawanAjax.index');
-        
-      
-      
-        
-        Route::get('medical/{id}/add-patient', [MedicalController::class, 'create'])->name('medical.create_patient');
+    // Get medical data for DataTables
+    Route::get('medical/detail/{medical}/data', [MedicalController::class, 'getMedicalData'])->name('medical.detail.data');
     
     
     
     
+    Route::get('medical/{id}/add-patient', [MedicalController::class, 'create'])->name('medical.create_patient');
+    
+    
+    
+    
+    Route::get('datakaryawan', [dataController::class, 'datakry'])->name('datakaryawan.datakry');
+    Route::get('datakaryawanAjax', [hrdController::class, 'index'])->name('datakaryawanAjax.index');
     
     
         Route::resource('adminController', AdminController::class);
