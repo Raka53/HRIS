@@ -14,4 +14,8 @@ class status_kry extends Model
     {
         return $this->hasMany(hrd::class);
     }
+    public function medical()
+    {
+        return $this->belongsTo(medical::class);
+    }
 }

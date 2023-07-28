@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Edit Medical Claim {{ $medical->hrd_id }}</h1>
+        <h1>Update Medical</h1>
 
         <form action="{{ route('medical.update', $medical->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -15,7 +15,7 @@
             </div>
             <div class="form-group">
                 <label for="patient">Patient Name</label>
-                <input type="text" name="patient" id="patient" class="form-control" value="{{ $medical->patient }}" required>
+                <input type="text" name="patient" id="patient" class="form-control" value="{{ $medical->patient }}" required pattern="[A-Za-z\s]+" title="Patient name tidak boelh ada angka">
             </div>
             <div class="form-group">
                 <label for="date_claim">Claim Date</label>

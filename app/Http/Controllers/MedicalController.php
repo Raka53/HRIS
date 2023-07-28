@@ -121,7 +121,7 @@ class MedicalController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatemedicalRequest $request, medical $medical)
+    public function update(Request $request, medical $medical)
     {
         $request->validate([
             'hrd_id' => 'required',
