@@ -8,9 +8,9 @@
                     <div class="card-header bg-primary text-white">Edit Data {{ $datakaryawan->name }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('datakaryawanAjax.update', $datakaryawan) }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('datakaryawanAjax.update', $datakaryawan->id) }}" enctype="multipart/form-data">
                             @csrf
-                            @method('PUT')
+                            @method('PATCH')
     
                             <div class="form-group row">
                                 <div class="col-md-4 text-center">
@@ -109,10 +109,11 @@
                                     <div class="form-group row">
                                         <label for="status" class="col-md-4 col-form-label text-md-right">{{ __('Status') }}</label>
                                         <div class="col-md-8">
-                                            <select class="form-control" name="status" id="status">
-                                                <option value="tetap" {{ $datakaryawan->status_kry->status == 'tetap' ? 'selected' : '' }}>Tetap</option>
-                                                <option value="Probation" {{ $datakaryawan->status_kry->status == 'Probation' ? 'selected' : '' }}>Probation</option>
-                                                <option value="Probation" {{ $datakaryawan->status_kry->status == 'resign' ? 'selected' : '' }}>Resign</option>
+                                            <select class="form-control" name="status_id" id="status_id">
+                                                <option >{{ $datakaryawan->status_kry->status }}</option>
+                                                <option value="1" {{ $datakaryawan->status_kry->status == 'tetap' ? 'selected' : '' }}>Tetap</option>
+                                                <option value="3" {{ $datakaryawan->status_kry->status == 'Probation' ? 'selected' : '' }}>Probation</option>
+                                                <option value="2" {{ $datakaryawan->status_kry->status == 'resign' ? 'selected' : '' }}>Resign</option>
                                             </select>
                                         </div>
                                     </div>

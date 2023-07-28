@@ -18,13 +18,13 @@ class hrd extends Model
     {
         return $this->belongsTo(status_kry::class, 'status_id');
     }
-    public function sewa_kendaraan()
+    public function sewa()
     {
         return $this->hasOne(sewaKendaraan::class, 'hrd_id');
     }
     public function medical()
     {
-        return $this->hasMany(medical::class, 'hrd_id');
+        return $this->hasMany(medical::class, 'hrd_id', 'id');
     }
 
 }

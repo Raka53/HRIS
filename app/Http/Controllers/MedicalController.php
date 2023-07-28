@@ -23,6 +23,10 @@ class MedicalController extends Controller
         
     }
   
+    // public function getTotalClaim(Request $request)
+    // {
+    //     $claimTotal = medical::where('date_claim', '>',$a)->where('date_claim','<', $b)->where('hrd_id',$request->id)
+    // }
 
     /**
      * Show the form for creating a new resource.

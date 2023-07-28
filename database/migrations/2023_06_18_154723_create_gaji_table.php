@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('hrd_id');
             $table->foreign('hrd_id')->references('id')->on('hrd');
-            $table->string('claim_id');
-            $table->string('status_id');
-            $table->string('sewa_id');
+            $table->string('sewa');
             $table->float('salary');
+            $table->date('start_date_medical');
+            $table->date('end_date_medical');
             $table->float('lembur');
-            $table->float('medical_claim');
+            $table->float('total_medical_claim');
             $table->float('transport');
             $table->float('meals');
             $table->float('total')->default(0);

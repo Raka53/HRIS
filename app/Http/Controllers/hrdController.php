@@ -100,7 +100,7 @@ class hrdController extends Controller
             'department' => 'required',
             'joblevel' => 'required',
             'jobtitle' => 'required',
-            'status' => 'required',
+            'status_id' => 'required',
             // Tambahkan validasi untuk field lainnya
         ],[
             'name.required' => 'Nama wajib diisi',
@@ -124,7 +124,7 @@ class hrdController extends Controller
     
         hrd::find($id)->update($validatedData);
         Alert::success('Success', 'Data Karyawan berhasil diperbarui.')->persistent(true);
-        return redirect('/datakaryawan');
+        return redirect('datakaryawanAjax');
     }
 
     /**

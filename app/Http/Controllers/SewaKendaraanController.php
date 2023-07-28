@@ -39,7 +39,7 @@ class SewaKendaraanController extends Controller
      */
     public function create()
     {
-        $data = Hrd::WheredoesntHave('sewa_kendaraan')->get();
+        $data = Hrd::WheredoesntHave('sewa')->get();
         return view('sewakendaraan.create', compact('data'));
     }
 

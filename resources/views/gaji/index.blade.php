@@ -44,7 +44,7 @@
                     { data: 'salary', name: 'salary' },
                     { data: 'lembur', name: 'lembur' },
                     { data: 'transport', name: 'transport' },
-                    { data: 'medical_claim', name: 'medical_claim' },
+                    { data: 'total_medical_claim', name: 'total_medical_claim' },
                     { data: 'meals', name: 'meals' },
                     { data: 'total', name: 'total' },
                     { data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center' }

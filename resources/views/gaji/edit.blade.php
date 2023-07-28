@@ -1,70 +1,143 @@
 @extends('template.main')
 
 @section('content')
+
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Update Data Gaji') }}
-                    <a href="{{ route('gajiAjax.index') }}" class="btn btn-secondary float-right">{{ __('Kembali') }}</a>
-                </div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('gajiAjax.update', $gaji->id) }}">
-                        @csrf
-                        @method('PUT')
-
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-                        <!-- Tampilkan SweetAlert di sini -->
-                        @if(session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
-
-                        <div class="mb-3">
-                            <label for="hrd_id" class="form-label">{{ __('Nama') }}</label>
-                            <input type="text" class="form-control" value="{{ $gaji->hrd->name }}" readonly>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="salary" class="form-label">{{ __('Salary') }}</label>
-                            <input type="number" class="form-control" name="salary" id="salary" value="{{ $gaji->salary }}" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="lembur" class="form-label">{{ __('Lembur') }}</label>
-                            <input type="number" class="form-control" name="lembur" id="lembur" value="{{ $gaji->lembur }}" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="transport" class="form-label">{{ __('Transport') }}</label>
-                            <input type="number" class="form-control" name="transport" id="transport" value="{{ $gaji->transport }}" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="meals" class="form-label">{{ __('Meals') }}</label>
-                            <input type="number" class="form-control" name="meals" id="meals" value="{{ $gaji->meals }}" required>
-                        </div>
-
-                        <!-- Tambahkan field lain yang diperlukan untuk update data gaji -->
-
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary">{{ __('Update Data') }}</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <h1>Edit Gaji</h1>
+    <form action="{{ route('gajiAjax.update', $gaji->id) }}" method="POST">
+        @csrf
+        @method('PATCH')
+        <div class="form-group">
+            <label for="nama_karyawan">Nama Karyawan</label>
+            <input type="text" name="nama_karyawan" id="nama_karyawan" class="form-control" value="{{ $gaji->hrd->name }}" readonly>
         </div>
-    </div>
+        <div class="form-group">
+            <label for="status">Status Karyawan</label>
+            <input type="text" name="status" id="status" class="form-control" value="{{ $gaji->hrd->status_kry->status }}" readonly>
+        </div>
+        <div class="form-group">
+            <input type="hidden" name="status_id" id="status_id" class="form-control" value="{{ $gaji->hrd->status_id }}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="sewa">Sewa Kendaraan</label>
+            <input type="number" name="sewa" id="sewa" class="form-control" value="{{ $gaji->sewa }}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="start_date_medical">Start Date Medical</label>
+            <input type="date" name="start_date_medical" id="start_date_medical" class="form-control" value="{{ $gaji->start_date_medical }}" required>
+        </div>
+        <div class="form-group">
+            <label for="end_date_medical">End Date Medical</label>
+            <input type="date" name="end_date_medical" id="end_date_medical" class="form-control" value="{{ $gaji->end_date_medical }}" required>
+        </div>
+        <div class="form-group">
+            <button type="button" id="calculateTotalMedicalClaim" class="btn btn-primary">Hitung Medical Claim</button>
+        </div>
+        <div class="form-group">
+            <label for="total_medical_claim">Total Medical Claim</label>
+            <input type="number" name="total_medical_claim" id="total_medical_claim" class="form-control" value="{{ $gaji->total_medical_claim }}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="salary">Salary</label>
+            <input type="number" name="salary" id="salary" class="form-control" value="{{ $gaji->salary }}">
+        </div>
+        <div class="form-group">
+            <label for="lembur">Lembur</label>
+            <input type="number" name="lembur" id="lembur" class="form-control" value="{{ $gaji->lembur }}">
+        </div>
+        <div class="form-group">
+            <label for="transport">Transport</label>
+            <input type="number" name="transport" id="transport" class="form-control" value="{{ $gaji->transport }}">
+        </div>
+        <div class="form-group">
+            <label for="meals">Meals</label>
+            <input type="number" name="meals" id="meals" class="form-control" value="{{ $gaji->meals }}">
+        </div>
+        <div class="form-group">
+            <label for="total">Total</label>
+            <input type="number" name="total" id="total" class="form-control" readonly value="{{ $gaji->total }}">
+        </div>
+       
+        <!-- ... Other form fields ... -->
+        <button type="submit" class="btn btn-primary">Update Gaji</button>
+        <a href="{{ route('gajiAjax.index') }}" class="btn btn-secondary">Kembali</a>
+    </form>
 </div>
+
+<script>
+    // Fetch HRD data as JSON using AJAX
+    fetch('/hrdJsonEdit/{{ $gaji->hrd->id }}')
+        .then(response => response.json())
+        .then(hrdData => {
+            const hrdSelect = document.getElementById('nama_karyawan');
+            const statusInput = document.getElementById('status');
+            const status_idInput = document.getElementById('status_id');
+            const sewaInput = document.getElementById('sewa');
+            const startDateMedicalInput = document.getElementById('start_date_medical');
+            const endDateMedicalInput = document.getElementById('end_date_medical');
+            const totalMedicalClaimInput = document.getElementById('total_medical_claim');
+
+            // Set the selected HRD based on the existing data
+            hrdSelect.value = hrdData.name;
+
+            // Function to calculate the total based on the entered values in the form
+            function calculateTotal() {
+                const salary = parseFloat(document.getElementById('salary').value);
+                const lembur = parseFloat(document.getElementById('lembur').value);
+                const transport = parseFloat(document.getElementById('transport').value);
+                const meals = parseFloat(document.getElementById('meals').value);
+                const totalMedicalClaim = parseFloat(document.getElementById('total_medical_claim').value);
+                const sewa = parseFloat(document.getElementById('sewa').value); // Include Sewa in the calculation
+                const status_id = document.getElementById('status_id').value;
+
+                let total = salary + lembur + transport + meals + totalMedicalClaim + sewa;
+
+                // Adjust the salary if status_id is 2
+                if (status_id === '1') {
+                    total -= salary * 0.1; // Reduce the total by 10% of the salary
+                }
+
+                // Set the value of the total and salary input fields to the calculated values
+                document.getElementById('total').value = total.toFixed(2);
+            }
+
+            // Add event listeners to the form fields to recalculate the total when any of them are changed
+            const formFields = ['salary', 'lembur', 'transport', 'meals', 'total_medical_claim', 'sewa'];
+            formFields.forEach(fieldName => {
+                const inputField = document.getElementById(fieldName);
+                inputField.addEventListener('input', calculateTotal);
+            });
+
+            // Calculate the total medical claim on page load
+            document.addEventListener('DOMContentLoaded', function () {
+                calculateTotal();
+            });
+
+            // Add event listener to calculateButton
+            const calculateButton = document.getElementById('calculateTotalMedicalClaim');
+            calculateButton.addEventListener('click', function () {
+                // Calculate and set the total medical claim for the selected date range and HRD's name
+                const startDateMedical = startDateMedicalInput.value;
+                const endDateMedical = endDateMedicalInput.value;
+
+                // Find the medical data for the selected HRD and date range
+                const medicalData = hrdData.medical.filter(item => {
+                    const itemDateClaim = new Date(item.date_claim); // Convert date_claim to Date object
+                    return itemDateClaim >= new Date(startDateMedical) && itemDateClaim <= new Date(endDateMedical);
+                });
+
+                // Calculate the total medical claim by summing up the 'Total' property in each data object
+                const totalMedicalClaim = medicalData.reduce((total, item) => total + parseFloat(item.Total), 0);
+
+                // Set the value of the total_medical_claim input to the calculated total
+                totalMedicalClaimInput.value = totalMedicalClaim.toFixed(2);
+
+                // Recalculate the total based on the entered values in the form
+                calculateTotal();
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching HRD data:', error);
+        });
+</script>
 @endsection

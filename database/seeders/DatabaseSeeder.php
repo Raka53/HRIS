@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         
-         hrd::factory(50)->create();
+         hrd::factory(10)->create();
          status_kry::factory(3)->create();
          $this->call(UserRoleSeeder::class);
 

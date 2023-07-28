@@ -16,7 +16,17 @@ class gaji extends Model
     }
     public function status_kry()
     {
-        return $this->belongsTo(status_kry::class, 'status_id');
+        return $this->belongsTo(status_kry::class, 'hrd_id');
+    }
+   
+    public function medical()
+    {
+        return $this->belongsTo(medical::class, 'hrd_id');
+    }
+   
+    public function sewa()
+    {
+        return $this->belongsTo(sewaKendaraan::class, 'hrd_id');
     }
    
 }
