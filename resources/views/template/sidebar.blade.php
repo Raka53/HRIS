@@ -40,14 +40,27 @@
             </div>
         </div>
     </li>
-
-    {{-- Register --}}
-    @role('it')
-    <hr class="sidebar-divider">
-    <li class="nav-item {{ Request::is('adminController*') ? 'active' : '' }}">
-        <a class="nav-link fas fa-wrench" href="{{ route('adminController.index') }}"> {{ __('Admin Controller') }}</a>
+     <!-- Divider -->
+     <hr class="sidebar-divider d-none d-md-block">
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item {{ Request::is('adminController*','hrd*') ? 'active' : '' }}">
+        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
+            aria-controls="collapsePages">
+            <i class="fas fa-fw fa-coffee"></i>
+            <span>Admin Controller</span>
+        </a>
+        <div id="collapsePages" class="collapse {{ Request::is('adminController*','hrd*') ? 'show' : '' }}" aria-labelledby="headingPages"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('adminController.index') }}"> {{ __('Admin Controller') }}</a>
+                @role('it|manager')
+                <a class="collapse-item" href="{{ route('hrd.showDeletedData') }}">Deleted Data</a>
+                @endrole
+            </div>
+        </div>
     </li>
-    @endrole
+
+  
   
 
     <!-- Divider -->

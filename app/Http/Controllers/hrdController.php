@@ -154,4 +154,21 @@ class hrdController extends Controller
   
       return response()->json(['message' => 'Data tidak ditemukan.'], 404);
     }
+    //restore data yang di hapus
+    public function restoreHrdData($id)
+        {
+            $hrd = hrd::onlyTrashed()->findOrFail($id);
+
+            // Mengembalikan data yang telah dihapus
+            $hrd->restore();
+
+            // Redirect atau berikan respons sesuai kebutuhan Anda
+            return redirect()->route('hrd.index')->with('success', 'Data berhasil dikembalikan!');
+        }
+
+        public function showDeletedData()
+        {
+            $deletedHrds = hrd::onlyTrashed()->get();
+            return view('hrd.restore', compact('deletedHrds'));
+        }
 }

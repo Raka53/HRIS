@@ -35,8 +35,11 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('medical/{id}/add-patient', [MedicalController::class, 'create'])->name('medical.create_patient');
     
-    
-    
+   // Rute untuk menampilkan data karyawan yang telah dihapus (Soft Delete)
+    Route::get('/hrd/deleted', [hrdController::class, 'showDeletedData'])->name('hrd.showDeletedData');
+
+    // Rute untuk mengembalikan data karyawan yang telah dihapus
+    Route::patch('/hrd/restore/{id}', [hrdController::class, 'restoreHrdData'])->name('hrd.restore');
     
     Route::get('datakaryawan', [dataController::class, 'datakry'])->name('datakaryawan.datakry');
     Route::get('datakaryawanAjax', [hrdController::class, 'index'])->name('datakaryawanAjax.index');
