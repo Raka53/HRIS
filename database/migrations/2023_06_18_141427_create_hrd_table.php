@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('jobtitle');
             $table->string('foto')->nullable();
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
 
         });
     }

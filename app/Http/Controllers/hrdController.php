@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\hrd;
 use App\Models\gaji;
+use App\Models\medical;
+use App\Models\sewaKendaraan;
 use App\Models\status_kry;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -134,6 +136,8 @@ class hrdController extends Controller
     {
       // Menghapus data dari tabel gaji
       $gaji = gaji::where('hrd_id', $id)->delete();
+      $sewa = sewaKendaraan::where('hrd_id', $id)->delete();
+      $medical = medical::where('hrd_id', $id)->delete();
 
       // Menghapus data dari tabel hrd
       $karyawan = hrd::find($id);

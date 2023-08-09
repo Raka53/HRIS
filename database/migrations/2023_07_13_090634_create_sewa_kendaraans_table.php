@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('jenis_kendaraan');
             $table->float('harga_sewa');
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

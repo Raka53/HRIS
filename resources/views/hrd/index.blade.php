@@ -52,7 +52,7 @@
     var id = $(this).data('id');
     Swal.fire({
       title: 'Yakin Mau Hapus?',
-      text: "Data yang dihapus tidak dapat dikembalikan!",
+      text: "Data ini mencangkup data sewa kendaraan, medical, dan gaji!!!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',

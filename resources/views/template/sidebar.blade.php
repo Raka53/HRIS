@@ -33,9 +33,9 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('datakaryawanAjax.index') }}">Data Karyawan</a>
                 @role('it|manager')
-                <a class="collapse-item" href="{{ route('gajiAjax.index') }}">Gaji Karyawan</a>
                 <a class="collapse-item" href="{{ route('SewaKendaraan.index') }}">Sewa Kendaraan</a>
                 <a class="collapse-item" href="{{ route('medical.index') }}">Medical Claim</a>
+                <a class="collapse-item" href="{{ route('gajiAjax.index') }}">Gaji Karyawan</a>
                 @endrole
             </div>
         </div>

@@ -26,6 +26,7 @@ class GajiController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $editUrl = route('gajiAjax.edit', $row->id);
+                    
                     $btn = '<a href="' . $editUrl . '" class="btn btn-primary btn-sm">Edit/Update</a>';
                     return $btn;
                 })
@@ -73,7 +74,7 @@ class GajiController extends Controller
         $gaji = new Gaji();
         $gaji->salary = $request->salary;
         $gaji->hrd_id = $request->hrd_id;
-        $gaji->sewa = $request->sewa;
+        $gaji->harga_sewa = $request->sewa;
         $gaji->lembur = $request->lembur;
         $gaji->total_medical_claim = $request->total_medical_claim;
         $gaji->start_date_medical = $request->start_date_medical;
@@ -136,7 +137,7 @@ class GajiController extends Controller
         $gaji = Gaji::findOrFail($id);
         $gaji->salary = $request->salary;
         
-        $gaji->sewa = $request->sewa;
+        $gaji->harga_sewa = $request->sewa;
         $gaji->lembur = $request->lembur;
         $gaji->total_medical_claim = $request->total_medical_claim;
         $gaji->transport = $request->transport;
@@ -157,11 +158,6 @@ class GajiController extends Controller
      */
     public function destroy($id)
     {
-        $gaji = Gaji::findOrFail($id);
-        $gaji->delete();
-
-        Alert::success('Success', 'Data gaji berhasil dihapus.')->persistent(true);
-
-        return redirect()->route('gajiAjax.index');
+      
     }
 }

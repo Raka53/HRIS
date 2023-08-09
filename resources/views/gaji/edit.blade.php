@@ -20,7 +20,7 @@
         </div>
         <div class="form-group">
             <label for="sewa">Sewa Kendaraan</label>
-            <input type="number" name="sewa" id="sewa" class="form-control" value="{{ $gaji->sewa }}" readonly>
+            <input type="number" name="sewa" id="sewa" class="form-control" value="{{ $gaji->hrd->sewa->harga_sewa }}" readonly>
         </div>
         <div class="form-group">
             <label for="start_date_medical">Start Date Medical</label>

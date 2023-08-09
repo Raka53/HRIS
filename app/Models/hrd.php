@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class hrd extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     public $table = "hrd";
     protected $guarded = ['id', 'timestamps'];
+    protected $dates = ['deleted_at'];
     public function gaji()
     {
         return $this->hasOne(gaji::class);

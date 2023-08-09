@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('hrd_id');
             $table->foreign('hrd_id')->references('id')->on('hrd');
-            $table->string('sewa');
+            $table->string('harga_sewa');
             $table->float('salary');
             $table->date('start_date_medical');
             $table->date('end_date_medical');
@@ -25,6 +25,7 @@ return new class extends Migration
             $table->float('meals');
             $table->float('total')->default(0);
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 
