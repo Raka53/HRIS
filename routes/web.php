@@ -5,6 +5,7 @@ use App\Http\Controllers\dataController;
 use App\Http\Controllers\GajiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\KandidatController;
 use App\Http\Controllers\SewaKendaraanController;
 use App\Http\Controllers\MedicalController;
 
@@ -44,6 +45,21 @@ Route::middleware(['auth'])->group(function () {
     Route::get('datakaryawan', [dataController::class, 'datakry'])->name('datakaryawan.datakry');
     Route::get('datakaryawanAjax', [hrdController::class, 'index'])->name('datakaryawanAjax.index');
     
+
+    Route::get('datakandidat', [dataController::class, 'datakdt'])->name('datakaryawan.datakdt');
+    Route::get('datakandidat/{id}/edit', [KandidatController::class, 'edit'])->name('datakandidat.edit');
+    Route::patch('datakandidat/{id}', [KandidatController::class, 'update'])->name('datakandidat.update');
+    Route::get('dataStatus', [dataController::class, 'dataStatus'])->name('datakaryawan.dataStatus');
+    Route::get('statusData', [dataController::class, 'statusData'])->name('kandidat.dataStatus');
+    Route::get('kandidat', [KandidatController::class, 'index'])->name('kandidat.index');
+    Route::get('statuskandidat', [KandidatController::class, 'status'])->name('statuskandidat.status');
+    Route::get('/datakandidat/create', [KandidatController::class, 'create'])->name('datakandidat.create');
+    Route::get('/statusKdt/create', [KandidatController::class, 'createStatus'])->name('statusKdt.create');
+    Route::post('kandidat', [KandidatController::class, 'store'])->name('kandidat.store');
+    Route::post('statusTambah', [KandidatController::class, 'storeStatus'])->name('tambahStatus.store');
+
+
+
     Route::get('/hrdJsonEdit/{id}', [GajiController::class, 'hrdJsonEdit'])->name('hrdJsonEdit');
     
         Route::resource('adminController', AdminController::class);

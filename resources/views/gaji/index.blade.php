@@ -6,6 +6,8 @@
         <h1 class="text-center cool-title">Gaji Karyawan</h1>
     </div>
 
+    
+
     <div class="table-responsive col-lg-12">
        
             <a class="btn btn-primary mb-3 cool-button" href="{{ route('gajiAjax.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
@@ -24,6 +26,8 @@
                     <th>Medical CLaim</th>
                     <th>Meals</th>
                     <th>Total</th>
+                    <th>Tanggal Update</th>
+
                     <th class="text-center">Aksi</th>
                 </tr>
             </thead>
@@ -47,6 +51,13 @@
                     { data: 'total_medical_claim', name: 'total_medical_claim' },
                     { data: 'meals', name: 'meals' },
                     { data: 'total', name: 'total' },
+                    { 
+                        data: 'updated_at', 
+                        name: 'updated_at',
+                        render: function(data) {
+                            return new Date(data).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                        }
+                    },
                     { data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center' }
                 ]
             });

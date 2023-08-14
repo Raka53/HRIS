@@ -40,6 +40,20 @@
             </div>
         </div>
     </li>
+    <li class="nav-item {{ Request::is('kandidat*','statuskandidat*') ? 'active' : '' }}">
+        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
+            aria-controls="collapsePages">
+            <i class="fas fa-fw fa-coffee"></i>
+            <span>Data Kandidat</span>
+        </a>
+        <div id="collapsePages" class="collapse {{ Request::is('kandidat*','statuskandidat*') ? 'show' : '' }}" aria-labelledby="headingPages"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('kandidat.index') }}">Data Kandidat</a>
+                <a class="collapse-item" href="{{ route('statuskandidat.status') }}">Status Kandidat</a>
+            </div>
+        </div>
+    </li>
      <!-- Divider -->
      <hr class="sidebar-divider d-none d-md-block">
     <!-- Nav Item - Pages Collapse Menu -->
