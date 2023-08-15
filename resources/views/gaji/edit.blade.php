@@ -19,6 +19,9 @@
             <input type="hidden" name="status_id" id="status_id" class="form-control" value="{{ $gaji->hrd->status_id }}" readonly>
         </div>
         <div class="form-group">
+            <input type="hidden" name="hrd_id" id="hrd_id" class="form-control" value="{{ $gaji->hrd_id }}" readonly>
+        </div>
+        <div class="form-group">
             <label for="sewa">Sewa Kendaraan</label>
             <input type="number" name="sewa" id="sewa" class="form-control" value="{{ $gaji->hrd->sewa->harga_sewa }}" readonly>
         </div>

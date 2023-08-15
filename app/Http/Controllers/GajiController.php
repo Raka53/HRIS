@@ -139,11 +139,11 @@ class GajiController extends Controller
             'end_date_medical' => 'required',
         ]);
 
-        $oldGaji = Gaji::findOrFail($id); // Add a semicolon here
+        $gaji = new Gaji(); // Add a semicolon here
 
-        $gaji = $oldGaji->replicate();
+      
         $gaji->salary = $request->input('salary');
-        
+        $gaji->hrd_id = $request->input('hrd_id'); 
         $gaji->harga_sewa = $request->input('sewa');
         $gaji->lembur = $request->input('lembur');
         $gaji->total_medical_claim = $request->input('total_medical_claim');
@@ -158,8 +158,16 @@ class GajiController extends Controller
     
         return redirect()->route('gajiAjax.index');
     }
-    
+    public function cari(Request $request)
+        {
+            return view('gaji.cari');
+        }
 
+        public function detailCari($id)
+        {
+            $gaji = Hrd::with('gaji')->findOrFail($id);
+            return view('gaji.showGaji', compact('gaji'));
+        }
     /**
      * Remove the specified resource from storage.
      */

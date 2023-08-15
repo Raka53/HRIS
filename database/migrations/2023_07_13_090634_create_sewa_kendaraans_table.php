@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('hrd_id');
             $table->foreign('hrd_id')->references('id')->on('hrd');
             $table->string('jenis_kendaraan');
-            $table->float('harga_sewa');
+            $table->float('harga_sewa')->nullable();;
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

@@ -58,6 +58,16 @@ Route::middleware(['auth'])->group(function () {
     Route::post('kandidat', [KandidatController::class, 'store'])->name('kandidat.store');
     Route::post('statusTambah', [KandidatController::class, 'storeStatus'])->name('tambahStatus.store');
 
+    //cari gaji 
+    Route::get('/cari-gaji', [GajiController::class,'cari'])->name('gaji.cari');
+    Route::get('hasilGaji', [dataController::class,'dataCari'])->name('hasil.cari-gaji');
+    Route::get('detailCari/{id}/show', [GajiController::class,'detailCari'])->name('detail.cari');
+    Route::get('gaji/related-data/{hrd_id}', [dataController::class, 'relatedData'])->name('gaji.related-data');
+
+
+
+
+
 
 
     Route::get('/hrdJsonEdit/{id}', [GajiController::class, 'hrdJsonEdit'])->name('hrdJsonEdit');

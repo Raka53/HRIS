@@ -36,6 +36,7 @@
                 <a class="collapse-item" href="{{ route('SewaKendaraan.index') }}">Sewa Kendaraan</a>
                 <a class="collapse-item" href="{{ route('medical.index') }}">Medical Claim</a>
                 <a class="collapse-item" href="{{ route('gajiAjax.index') }}">Gaji Karyawan</a>
+                <a class="collapse-item" href="{{ route('gaji.cari') }}">Cari Gaji</a>
                 @endrole
             </div>
         </div>

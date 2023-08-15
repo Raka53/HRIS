@@ -58,6 +58,33 @@ class dataController extends Controller
         })
         ->Make(true);
     }
+    public function dataCari()
+    {
+        $data = hrd::with('gaji')->get();
+           
+        return DataTables::of($data)
+        ->addIndexColumn()
+        ->addColumn('aksi',function($data){
+            return view('gaji.show')->with('data', $data);
+        })
+        ->Make(true);
+    }
+    public function relatedData($id)
+    {
+        $gajiData = Gaji::where('hrd_id', $id)->get();
+
+        return Datatables::of($gajiData)
+            ->addIndexColumn()
+            ->addColumn('created_at', function ($row) {
+                return $row->created_at->format('Y-m-d');
+            })
+            ->addColumn('action', function ($row) {
+                // Add action buttons if needed
+                return '<a href="#">Detail</a>';
+            })
+            ->rawColumns(['action'])
+            ->toJson();
+    }
 
 
     

@@ -23,6 +23,7 @@
             <div class="form-group">
                 <label for="jenis_kendaraan">Jenis Kendaraan</label>
                 <select name="jenis_kendaraan" id="jenis_kendaraan" class="form-control">
+                    <option value="TidakAda">Tidak Ada</option>
                     <option value="Mobil">Mobil</option>
                     <option value="Motor">Motor</option>
                 </select>
@@ -32,7 +33,7 @@
             </div>
             <div class="form-group">
                 <label for="harga_sewa">Harga Sewa</label>
-                <input type="number" name="harga_sewa" id="harga_sewa" class="form-control" step="0.01" min="0">
+                <input type="number" name="harga_sewa" id="harga_sewa" class="form-control" step="0.01" min="0" value="0">
                 @error('harga_sewa')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
