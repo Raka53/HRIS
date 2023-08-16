@@ -32,7 +32,7 @@ class GajiController extends Controller
                 ->addColumn('action', function ($row) {
                     $editUrl = route('gajiAjax.edit', $row->id);
                     
-                    $btn = '<a href="' . $editUrl . '" class="btn btn-primary btn-sm">Edit/Update</a>';
+                    $btn = '<a href="' . $editUrl . '" class="btn btn-primary btn-sm">Update</a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])

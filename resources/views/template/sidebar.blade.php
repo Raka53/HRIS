@@ -22,13 +22,13 @@
     <hr class="sidebar-divider">
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item {{ Request::is('datakaryawan*','gajiAjax*', 'medical*','SewaKendaraan*') ? 'active' : '' }}">
-        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
-            aria-controls="collapsePages">
+    <li class="nav-item {{ Request::is('datakaryawan*','gajiAjax*', 'medical*','SewaKendaraan*','cari-gaji*','detailCari*') ? 'active' : '' }}">
+        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePagesHR" aria-expanded="true"
+            aria-controls="collapsePagesHR">
             <i class="fas fa-fw fa-coffee"></i>
             <span>HR</span>
         </a>
-        <div id="collapsePages" class="collapse {{ Request::is('datakaryawan*','gajiAjax*', 'medical*', 'SewaKendaraan*') ? 'show' : '' }}" aria-labelledby="headingPages"
+        <div id="collapsePagesHR" class="collapse {{ Request::is('datakaryawan*','gajiAjax*', 'medical*', 'SewaKendaraan*','cari-gaji*','detailCari*') ? 'show' : '' }}" aria-labelledby="headingPages"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('datakaryawanAjax.index') }}">Data Karyawan</a>
@@ -42,12 +42,12 @@
         </div>
     </li>
     <li class="nav-item {{ Request::is('kandidat*','statuskandidat*') ? 'active' : '' }}">
-        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
-            aria-controls="collapsePages">
+        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePagesKdt" aria-expanded="true"
+            aria-controls="collapsePagesKdt">
             <i class="fas fa-fw fa-coffee"></i>
             <span>Data Kandidat</span>
         </a>
-        <div id="collapsePages" class="collapse {{ Request::is('kandidat*','statuskandidat*') ? 'show' : '' }}" aria-labelledby="headingPages"
+        <div id="collapsePagesKdt" class="collapse {{ Request::is('kandidat*','statuskandidat*') ? 'show' : '' }}" aria-labelledby="headingPages"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('kandidat.index') }}">Data Kandidat</a>
@@ -59,12 +59,12 @@
      <hr class="sidebar-divider d-none d-md-block">
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item {{ Request::is('adminController*','hrd*') ? 'active' : '' }}">
-        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
-            aria-controls="collapsePages">
+        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePagesAdm" aria-expanded="true"
+            aria-controls="collapsePagesAdm">
             <i class="fas fa-fw fa-coffee"></i>
             <span>Admin Controller</span>
         </a>
-        <div id="collapsePages" class="collapse {{ Request::is('adminController*','hrd*') ? 'show' : '' }}" aria-labelledby="headingPages"
+        <div id="collapsePagesAdm" class="collapse {{ Request::is('adminController*','hrd*') ? 'show' : '' }}" aria-labelledby="headingPages"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="{{ route('adminController.index') }}"> {{ __('Admin Controller') }}</a>

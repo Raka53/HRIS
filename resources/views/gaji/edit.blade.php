@@ -62,7 +62,7 @@
         </div>
        
         <!-- ... Other form fields ... -->
-        <button type="submit" class="btn btn-primary">Update Gaji</button>
+        <button type="submit" class="btn btn-primary" id="updateButton">Update Gaji</button>
         <a href="{{ route('gajiAjax.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
 </div>
@@ -142,5 +142,8 @@
         .catch(error => {
             console.error('Error fetching HRD data:', error);
         });
+
+   
 </script>
+
 @endsection
