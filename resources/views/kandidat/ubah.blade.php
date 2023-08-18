@@ -19,7 +19,7 @@
                                     <div class="form-group row">
                                         <label for="dokumen" class="col-md-4 col-form-label text-md-right"></label>
                                         <div class="col-md-8">
-                                            <a href="{{ asset('storage/fotos/'.$data->posisiKdt->dokumen) }}" target="_blank">
+                                            <a href="{{ asset('storage/dokumenkdt/'.$data->posisiKdt->dokumen) }}" target="_blank">
                                                 <img src="{{ asset('storage/images/pdf.png') }}" alt="Dokumen" class="img-thumbnail" style="display: block; margin: 0 auto; margin-left: -40px;">
                                             </a>
                                         </div>

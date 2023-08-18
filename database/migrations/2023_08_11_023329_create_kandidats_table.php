@@ -16,8 +16,8 @@ return new class extends Migration
             
             
             $table->date('Tanggal_cv');
-            $table->string('sumber_lamaran');
             $table->string('nama');
+            $table->string('sumber_lamaran');
             $table->string('jenis_kelamin');
             $table->string('tempat_lahir')->nullable();
             $table->date('tanggal_lahir')->nullable();

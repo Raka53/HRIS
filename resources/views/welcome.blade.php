@@ -20,6 +20,7 @@
               placeholder="Email"
               class="input_text"
               autocomplete="off"
+              autofocus
             />
           </div>
           <div class="input_group">
@@ -33,8 +34,10 @@
             />
           </div>
           <div class="button_group" id="login_button">
-            
-            <a href="#" id="submit_button" class="submit_button">Login</a>
+            <button>
+
+              <a href="#" id="submit_button" class="submit_button">Login</a>
+            </button>
 
           </div>
         </form>

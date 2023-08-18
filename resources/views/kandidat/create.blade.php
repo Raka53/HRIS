@@ -7,9 +7,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Tambah Data Kandidat') }} <a href="/kandidat" class="btn btn-secondary float-right">{{ __('Kembali') }}</a>
                 </div>
-                <a href="{{ route('kandidat.index') }}" class="btn btn-secondary">
-                    {{ __('Kembali') }}
-                </a>
+               
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('kandidat.store') }}" enctype="multipart/form-data">

@@ -4,7 +4,18 @@
 <div class="d-flex justify-content-center align-items-center">
   <h1 class="text-center cool-title">Data Kandidat</h1>
 </div>
-
+@if(session('success'))
+    <div >
+        {{ session('success') }}
+        @if(session('refresh'))
+            <script>
+                setTimeout(function () {
+                    location.reload();
+                }, 1000); // Setelah 1 detik, halaman akan direfresh
+            </script>
+        @endif
+    </div>
+@endif
 <div class="table-responsive col-lg-12">
   
   <a class="btn btn-primary mb-3 cool-button" href="{{ route('datakandidat.create') }}">Tambah Data</a>
@@ -46,7 +57,7 @@
       { data: 'jenis_kelamin', name: 'jenis_kelamin' },
       { data: 'age', name: 'age' },
       { data: 'posisi_kdt.posisi1', name: 'posisi_kdt.posisi1' },
-      // { data: 'status_kdt.status_hasil', name: 'status_kdt.status_hasil' },
+
       { data: 'phone', name: 'phone' },
       { data: 'aksi', name: 'aksi', orderable: false, searchable: false }
     ]

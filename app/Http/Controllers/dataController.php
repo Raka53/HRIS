@@ -55,7 +55,7 @@ class dataController extends Controller
         ->addIndexColumn()
         ->addColumn('aksi',function($data){
             $editUrl = route('statusKdt.edit', $data->id);
-            $btn = '<a href="' . $editUrl . '" class="btn btn-primary btn-sm">Edit/Update</a>';
+            $btn = '<div class = "justify-content-center"> <a href="' . $editUrl . '" class="btn btn-primary btn-sm ">Edit/Update</a></div>';
             return $btn;
         })->rawColumns(['aksi'])
         ->Make(true);
@@ -80,7 +80,7 @@ class dataController extends Controller
     // Anda bisa menambahkan validasi tambahan di sini sebelum menyimpan data
 
     $status->save();
-
+    Alert::success('Success', 'Data Status berhasil di update.')->persistent(true);
     return redirect()->route('statuskandidat.status')->with('success', 'Status berhasil diperbarui.');
 }
     public function dataCari()

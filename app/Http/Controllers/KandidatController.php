@@ -9,6 +9,7 @@ use App\Models\posisi_kdt;
 use App\Models\status_kdt;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Storage;
 class KandidatController extends Controller
 {
     /**
@@ -81,7 +82,7 @@ class KandidatController extends Controller
         if ($request->hasFile('dokumen')) {
             $file = $request->file('dokumen');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $filePath = $file->storeAs('fotos', $fileName, 'public');
+            $filePath = $file->storeAs('dokumenkdt', $fileName, 'public');
             $validatePosisi['dokumen'] = $fileName;
         }
 
@@ -191,14 +192,23 @@ class KandidatController extends Controller
     $data->posisiKdt->penampilan = $request->input('penampilan');
 
     if ($request->hasFile('dokumen')) {
-        $dokumenPath = $request->file('dokumen')->store('dokumen', 'public');
-        $data->posisiKdt->dokumen = $dokumenPath;
+        $file = $request->file('dokumen');
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $filePath = $file->storeAs('dokumenkdt', $fileName, 'public');
+
+        // Hapus dokumen lama jika ada
+        if ($data->posisiKdt->dokumen) {
+            Storage::disk('public')->delete('dokumenkdt/' . $data->posisiKdt->dokumen);
+        }
+
+        // Update nama file dokumen pada database
+        $data->posisiKdt->dokumen = $fileName;
     }
 
+    $data->update($request->except(['dokumen']));
     $data->posisiKdt->save();
-    $data->save();
-
-    return redirect()->route('kandidat.index')->with('success', 'Data kandidat berhasil diperbarui.');
+    Alert::success('Success', 'Data Kandidat berhasil di Update.')->persistent(true);
+    return redirect()->route('kandidat.index')->with('success');
     }
 
     /**

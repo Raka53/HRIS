@@ -18,6 +18,7 @@
         <th>Interview MR</th>
         <th>Interview FG</th>
         <th>Hasil</th>
+        <th>Posisi Usulan</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -42,6 +43,7 @@
       { data: 'interview_MR', name: 'interview_MR' },
       { data: 'interview_FG', name: 'interview_FG' },
       { data: 'status_hasil', name: 'status_hasil' },
+      { data: 'posisi_usulan', name: 'posisi_usulan' },
       { data: 'aksi', name: 'aksi', orderable: false, searchable: false }
     ]
   });
