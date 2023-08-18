@@ -68,12 +68,13 @@ class KandidatController extends Controller
         ]);
 
         $validatePosisi = $request->validate([
-            'dokumen' => 'nullable|image|mimes:jpeg,png,jpg,gif,pdf|max:3048',
+            'dokumen' => 'nullable|mimes:pdf|max:3048',
             'pengalaman_terakhir' => 'nullable',
             'posisi_terakhir' => 'nullable',
             'posisi1' => 'required',
             'posisi2' => 'nullable',
             'penampilan' => 'nullable',
+            
         ]);
 
 
@@ -97,7 +98,7 @@ class KandidatController extends Controller
         ]);
         
         Alert::success('Success', 'Data Kandidat berhasil ditambah.')->persistent(true);
-        return redirect('/kandidat')->with('success', 'Data berhasil ditambahkan!');
+        return redirect()->route('datakandidat.create')->with('success', 'Data berhasil ditambahkan!');
     }
     public function storeStatus(Request $request){
 
@@ -137,16 +138,67 @@ class KandidatController extends Controller
      */
     public function edit(string $id)
     {
-        $data = kandidat::findOrFail($id);
+        $data = kandidat::with('posisiKdt')->findOrFail($id);
         return view('kandidat.ubah', compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatekandidatRequest $request, kandidat $kandidat)
+    public function update(Request $request, $id)
     {
-        //
+        $data = kandidat::findOrFail($id);
+
+    $request->validate([
+        'Tanggal_cv' => 'date',
+        'nama' => 'required',
+        'jenis_kelamin' => 'required',
+        'sumber_lamaran' => 'nullable',
+        'pengalaman_terakhir' => 'nullable',
+        'tempat_lahir' => 'nullable',
+        'tanggal_lahir' => 'nullable|date',
+        'age' => 'required',
+        'status' => 'nullable',
+        'phone' => 'required',
+        'email' => 'required|email',
+        'pendidikan' => 'required',
+        'universitas' => 'required',
+        'ipk' => 'nullable',
+        'posisi_terakhir' => 'nullable',
+        'posisi1' => 'required',
+        'posisi2' => 'nullable',
+        'penampilan' => 'nullable',
+        'dokumen' => 'nullable|mimes:pdf|max:3048',
+    ]);
+
+    $data->Tanggal_cv = $request->input('Tanggal_cv');
+    $data->nama = $request->input('nama');
+    $data->jenis_kelamin = $request->input('jenis_kelamin');
+    $data->sumber_lamaran = $request->input('sumber_lamaran');
+    $data->posisiKdt->pengalaman_terakhir = $request->input('pengalaman_terakhir');
+    $data->tempat_lahir = $request->input('tempat_lahir');
+    $data->tanggal_lahir = $request->input('tanggal_lahir');
+    $data->age = $request->input('age');
+    $data->status = $request->input('status');
+    $data->phone = $request->input('phone');
+    $data->email = $request->input('email');
+    $data->pendidikan = $request->input('pendidikan');
+    $data->universitas = $request->input('universitas');
+    $data->ipk = $request->input('ipk');
+    $data->posisiKdt->posisi_terakhir = $request->input('posisi_terakhir');
+    $data->posisiKdt->posisi1 = $request->input('posisi1');
+    $data->posisiKdt->posisi2 = $request->input('posisi2');
+    $data->posisiKdt->penampilan = $request->input('penampilan');
+
+    if ($request->hasFile('dokumen')) {
+        $dokumenPath = $request->file('dokumen')->store('dokumen', 'public');
+        $data->posisiKdt->dokumen = $dokumenPath;
+    }
+
+    $data->posisiKdt->save();
+    $data->save();
+
+    return redirect()->route('kandidat.index')->with('success', 'Data kandidat berhasil diperbarui.');
     }
 
     /**

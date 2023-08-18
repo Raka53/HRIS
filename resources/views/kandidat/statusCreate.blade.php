@@ -3,6 +3,9 @@
 @section('content')
 
 <div class="container">
+    <div class="d-flex justify-content-end mb-3">
+        <a href="{{ route('statuskandidat.status') }}" class="btn btn-secondary">Kembali</a>
+    </div>
     <h1>Tambah Status</h1>
     <form action="{{ route('tambahStatus.store') }}" method="POST">
         @csrf
@@ -59,7 +62,7 @@
 
         <!-- ... Other form fields ... -->
         <button type="submit" class="btn btn-primary">Tambah Status</button>
-        <a href="{{ route('statuskandidat.status') }}" class="btn btn-secondary">Kembali</a>
+        
     </form>
 </div>
 <script>

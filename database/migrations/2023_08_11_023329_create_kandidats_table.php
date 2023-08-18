@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('pendidikan');
             $table->string('universitas');
-            $table->string('ipk');
+            $table->string('ipk')->nullable();
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

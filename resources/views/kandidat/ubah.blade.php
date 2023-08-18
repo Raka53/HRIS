@@ -14,16 +14,21 @@
     
                             <div class="form-group row">
                                 <div class="col-md-4 text-center">
-                                    <h5>Foto {{ $data->name }}</h5>
+                                    <h5>Dokumen {{ $data->nama }}</h5>
                                     <br>
-                                    <div class="rounded overflow-hidden d-inline-block" style="width: 200px; height: 200px;">
-                                        <img src="{{ asset('storage/fotos/'.$data->foto) }}" alt="Foto Profil" class="img-thumbnail h-100 w-100">
+                                    <div class="form-group row">
+                                        <label for="dokumen" class="col-md-4 col-form-label text-md-right"></label>
+                                        <div class="col-md-8">
+                                            <a href="{{ asset('storage/fotos/'.$data->posisiKdt->dokumen) }}" target="_blank">
+                                                <img src="{{ asset('storage/images/pdf.png') }}" alt="Dokumen" class="img-thumbnail" style="display: block; margin: 0 auto; margin-left: -40px;">
+                                            </a>
+                                        </div>
                                     </div>
+                                    
                                     <br>
-                                    <br>
-                                    <label for="foto" class="btn btn-primary">{{ __('Upload Foto') }}</label>
-                                    <input id="foto" type="file" class="d-none @error('foto') is-invalid @enderror" name="foto">
-                                    @error('foto')
+                                    <label for="dokumen" class="btn btn-primary">{{ __('Upload dokumen') }}</label>
+                                    <input id="dokumen" type="file" class="d-none @error('dokumen') is-invalid @enderror" name="dokumen">
+                                    @error('dokumen')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -33,12 +38,12 @@
                                     <div class="form-group row">
                                         <label for="Tanggal_cv" class="col-md-4 col-form-label text-md-right">{{ __('Tanggal cv') }}</label>
                                         <div class="col-md-8">
-                                            <input id="Tanggal_cv" type="text" class="form-control" name="Tanggal_cv" value="{{ $data->Tanggal_cv }}">
+                                            <input id="Tanggal_cv" type="date" class="form-control" name="Tanggal_cv" value="{{ $data->Tanggal_cv }}">
                                         </div>
                                     </div>
     
                                     <div class="form-group row">
-                                        <label for="nama" class="col-md-4 col-form-label text-md-right">{{ __('nama') }}</label>
+                                        <label for="nama" class="col-md-4 col-form-label text-md-right">{{ __('Nama') }}</label>
                                         <div class="col-md-8">
                                             <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ $data->nama }}" required autofocus>
                                             @error('nama')
@@ -52,7 +57,7 @@
                                     <!-- Tambahkan elemen form untuk field lainnya -->
                                     
                                     <div class="form-group row">
-                                        <label for="jenis_kelamin" class="col-md-4 col-form-label text-md-right">{{ __('jenis_kelamin') }}</label>
+                                        <label for="jenis_kelamin" class="col-md-4 col-form-label text-md-right">{{ __('Jenis Kelamin') }}</label>
                                         <div class="col-md-8">
                                             <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
                                                 <option value="Male" {{ $data->jenis_kelamin == 'Male' ? 'selected' : '' }}>Male</option>
@@ -69,45 +74,109 @@
                                     </div>
                                     
                                     <div class="form-group row">
-                                        <label for="location" class="col-md-4 col-form-label text-md-right">{{ __('Location') }}</label>
+                                        <label for="pengalaman_terakhir" class="col-md-4 col-form-label text-md-right">{{ __('Pengalaman Terakhir') }}</label>
                                         <div class="col-md-8">
-                                            <input id="location" type="text" class="form-control" name="location" value="{{ $data->location }}">
+                                            <input id="pengalaman_terakhir" type="text" class="form-control" name="pengalaman_terakhir" value="{{ $data->posisiKdt->pengalaman_terakhir }}">
                                         </div>
                                     </div>
-                                    
+
                                     <div class="form-group row">
-                                        <label for="department" class="col-md-4 col-form-label text-md-right">{{ __('Department') }}</label>
+                                        <label for="tempat_lahir" class="col-md-4 col-form-label text-md-right">{{ __('Tempat Lahir') }}</label>
                                         <div class="col-md-8">
-                                            <select class="form-control" name="department" id="department">
-                                                <option value="IT" {{ $data->department == 'IT' ? 'selected' : '' }}>IT</option>
-                                                <option value="Finance" {{ $data->department == 'Finance' ? 'selected' : '' }}>Finance</option>
-                                                <option value="Marketing" {{ $data->department == 'Marketing' ? 'selected' : '' }}>Marketing</option>
-                                                <option value="Sales" {{ $data->department == 'Sales' ? 'selected' : '' }}>Sales</option>
-                                                <option value="Technik" {{ $data->department == 'Technik' ? 'selected' : '' }}>Technik</option>
-                                                <option value="Office" {{ $data->department == 'Office' ? 'selected' : '' }}>Office</option>
+                                            <input id="tempat_lahir" type="text" class="form-control" name="tempat_lahir" value="{{ $data->tempat_lahir }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="tanggal_lahir" class="col-md-4 col-form-label text-md-right">{{ __('Tanggal Lahir') }}</label>
+                                        <div class="col-md-8">
+                                            <input id="tanggal_lahir" type="date" class="form-control" name="tanggal_lahir" value="{{ $data->tanggal_lahir }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="age" class="col-md-4 col-form-label text-md-right">{{ __('Age') }}</label>
+                                        <div class="col-md-8">
+                                            <input id="age" type="number" class="form-control" name="age" value="{{ $data->age }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="status" class="col-md-4 col-form-label text-md-right">{{ __('Status') }}</label>
+                                        <div class="col-md-8">
+                                            <select class="form-control" name="status" id="status">
+                                                
+                                               
+                                                <option value="Single" {{ $data->status == 'Single' ? 'selected' : '' }}>Single</option>
+                                                <option value="Married" {{ $data->status == 'Married' ? 'selected' : '' }}>Married</option>
                                             </select>
                                         </div>
                                     </div>
-                                    
                                     <div class="form-group row">
-                                        <label for="joblevel" class="col-md-4 col-form-label text-md-right">{{ __('Job Level') }}</label>
+                                        <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone') }}</label>
                                         <div class="col-md-8">
-                                            <input id="joblevel" type="text" class="form-control" name="joblevel" value="{{ $data->joblevel }}">
+                                            <input id="phone" type="text" class="form-control" name="phone" value="{{ $data->phone }}">
                                         </div>
                                     </div>
-                                    
                                     <div class="form-group row">
-                                        <label for="jobtitle" class="col-md-4 col-form-label text-md-right">{{ __('Job Title') }}</label>
+                                        <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
                                         <div class="col-md-8">
-                                            <select class="form-control" name="jobtitle" id="jobtitle">
-                                                <option value="manager" {{ $data->jobtitle == 'manager' ? 'selected' : '' }}>Manager</option>
-                                                <option value="staf" {{ $data->jobtitle == 'staf' ? 'selected' : '' }}>Staff</option>
+                                            <input id="email" type="email" class="form-control" name="email" value="{{ $data->email }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="pendidikan" class="col-md-4 col-form-label text-md-right">{{ __('Pendidikan') }}</label>
+                                        <div class="col-md-8">
+                                            <input id="pendidikan" type="text" class="form-control" name="pendidikan" value="{{ $data->pendidikan }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="universitas" class="col-md-4 col-form-label text-md-right">{{ __('Universitas') }}</label>
+                                        <div class="col-md-8">
+                                            <input id="universitas" type="text" class="form-control" name="universitas" value="{{ $data->universitas }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="ipk" class="col-md-4 col-form-label text-md-right">{{ __('Ipk') }}</label>
+                                        <div class="col-md-8">
+                                            <input id="ipk" type="text" class="form-control" name="ipk" value="{{ $data->ipk }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="posisi_terakhir" class="col-md-4 col-form-label text-md-right">{{ __('Posisi Terakhir') }}</label>
+                                        <div class="col-md-8">
+                                            <input id="posisi_terakhir" type="text" class="form-control" name="posisi_terakhir" value="{{ $data->posisiKdt->posisi_terakhir }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="posisi1" class="col-md-4 col-form-label text-md-right">{{ __('Posisi1') }}</label>
+                                        <div class="col-md-8">
+                                            <input id="posisi1" type="text" class="form-control" name="posisi1" value="{{ $data->posisiKdt->posisi1 }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="posisi2" class="col-md-4 col-form-label text-md-right">{{ __('Posisi2') }}</label>
+                                        <div class="col-md-8">
+                                            <input id="posisi2" type="text" class="form-control" name="posisi2" value="{{ $data->posisiKdt->posisi2 }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="penampilan" class="col-md-4 col-form-label text-md-right">{{ __('penampilan') }}</label>
+                                        <div class="col-md-8">
+                                            <select class="form-control" name="penampilan" id="penampilan">
+                                                
+                                               
+                                                <option value="OK" {{ $data->posisiKdt->penampilan == 'OK' ? 'selected' : '' }}>OK</option>
+                                                <option value="NotOK" {{ $data->posisiKdt->penampilan == 'NotOK' ? 'selected' : '' }}>Not OK</option>
                                             </select>
                                         </div>
                                     </div>
-                                    
-                              
+
+
+
+
+
+
                                 </div>
+                                    
+                                    
                             </div>
     
                             <div class="form-group row mb-0">

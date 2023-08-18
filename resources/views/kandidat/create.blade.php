@@ -7,6 +7,9 @@
             <div class="card">
                 <div class="card-header">{{ __('Tambah Data Kandidat') }} <a href="/kandidat" class="btn btn-secondary float-right">{{ __('Kembali') }}</a>
                 </div>
+                <a href="{{ route('kandidat.index') }}" class="btn btn-secondary">
+                    {{ __('Kembali') }}
+                </a>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('kandidat.store') }}" enctype="multipart/form-data">
@@ -63,7 +66,7 @@
 
                         <div class="mb-3">
                             <label for="age" class="form-label">{{ __('Age') }}</label>
-                            <input type="text" class="form-control" name="age" id="age" value="{{ old('age') }}">
+                            <input type="number" class="form-control" name="age" id="age" value="{{ old('age') }}">
                         </div>
 
                         <div class="mb-3">
@@ -113,7 +116,7 @@
 
                         <div class="mb-3">
                             <label for="posisi1" class="form-label">{{ __('Posisi Pilihan 1') }}</label>
-                            <input type="text" class="form-control" name="posisi1" id="posisi1" value="{{ old('posisi1') }}">
+                            <input type="text" class="form-control" name="posisi1" id="posisi1" value="{{ old('posisi1') }}" required>
                         </div>
 
                         <div class="mb-3">

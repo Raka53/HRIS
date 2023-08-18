@@ -55,8 +55,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('statuskandidat', [KandidatController::class, 'status'])->name('statuskandidat.status');
     Route::get('/datakandidat/create', [KandidatController::class, 'create'])->name('datakandidat.create');
     Route::get('/statusKdt/create', [KandidatController::class, 'createStatus'])->name('statusKdt.create');
-    Route::post('kandidat', [KandidatController::class, 'store'])->name('kandidat.store');
+    Route::post('kandidatStore', [KandidatController::class, 'store'])->name('kandidat.store');
     Route::post('statusTambah', [KandidatController::class, 'storeStatus'])->name('tambahStatus.store');
+    Route::get('statusKdt/{id}/edit', [dataController::class, 'editStatus'])->name('statusKdt.edit');
+    Route::patch('statusKdt/{id}', [dataController::class, 'updateStatus'])->name('updateKdt.update');
 
     //cari gaji 
     Route::get('/cari-gaji', [GajiController::class,'cari'])->name('gaji.cari');

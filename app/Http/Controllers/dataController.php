@@ -54,10 +54,35 @@ class dataController extends Controller
         return DataTables::of($data)
         ->addIndexColumn()
         ->addColumn('aksi',function($data){
-            return view('kandidat.tombol')->with('data', $data);
-        })
+            $editUrl = route('statusKdt.edit', $data->id);
+            $btn = '<a href="' . $editUrl . '" class="btn btn-primary btn-sm">Edit/Update</a>';
+            return $btn;
+        })->rawColumns(['aksi'])
         ->Make(true);
     }
+
+    public function editStatus($id)
+    {
+        $status = status_kdt::with('kandidat')->findOrFail($id);
+        return view('kandidat.statusUbah', compact('status'));
+    }
+
+    public function updateStatus(Request $request, $id)
+{
+    $status = status_kdt::findOrFail($id);
+
+    $status->interview_user = $request->input('interview_user');
+    $status->interview_MR = $request->input('interview_MR');
+    $status->interview_FG = $request->input('interview_FG');
+    $status->posisi_usulan = $request->input('posisi_usulan');
+    $status->status_hasil = $request->input('status_hasil');
+
+    // Anda bisa menambahkan validasi tambahan di sini sebelum menyimpan data
+
+    $status->save();
+
+    return redirect()->route('statuskandidat.status')->with('success', 'Status berhasil diperbarui.');
+}
     public function dataCari()
     {
         $data = hrd::with('gaji')->get();
