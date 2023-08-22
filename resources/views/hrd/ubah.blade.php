@@ -107,13 +107,21 @@
                                     </div>
                                     
                                     <div class="form-group row">
-                                        <label for="status" class="col-md-4 col-form-label text-md-right">{{ __('Status') }}</label>
+                                        <label for="statusKry" class="col-md-4 col-form-label text-md-right">{{ __('statusKry') }}</label>
                                         <div class="col-md-8">
-                                            <select class="form-control" name="status_id" id="status_id">
-                                                <option >{{ $datakaryawan->status_kry->status }}</option>
-                                                <option value="1" {{ $datakaryawan->status_kry->status == 'tetap' ? 'selected' : '' }}>Tetap</option>
-                                                <option value="3" {{ $datakaryawan->status_kry->status == 'Probation' ? 'selected' : '' }}>Probation</option>
-                                                <option value="2" {{ $datakaryawan->status_kry->status == 'resign' ? 'selected' : '' }}>Resign</option>
+                                            <select class="form-control" name="statusKry" id="statusKry">
+                                                <option value="{{ $datakaryawan->statusKry }}" selected>
+                                                    @if ($datakaryawan->statusKry == 1)
+                                                        Tetap
+                                                    @elseif ($datakaryawan->statusKry == 2)
+                                                        Probation
+                                                    @elseif ($datakaryawan->statusKry == 3)
+                                                        Resign
+                                                    @endif
+                                                </option>
+                                                <option value="1">Tetap</option>
+                                                <option value="2">Probation</option>
+                                                <option value="3">Resign</option>
                                             </select>
                                         </div>
                                     </div>

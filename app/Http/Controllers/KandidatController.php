@@ -208,7 +208,7 @@ class KandidatController extends Controller
     $data->update($request->except(['dokumen']));
     $data->posisiKdt->save();
     Alert::success('Success', 'Data Kandidat berhasil di Update.')->persistent(true);
-    return redirect()->route('kandidat.index')->with('success');
+    return redirect()->route('kandidat.index')->with('refresh', true);
     }
 
     /**

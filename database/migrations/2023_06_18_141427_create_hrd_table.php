@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('hrd', function (Blueprint $table) {
-            $table->string('NIK')->unique();
-            $table->string('status_id');
             $table->id();
+            $table->string('NIK')->unique();
+            $table->string('statusKry');
             $table->string('name');
             $table->string('gender');
             $table->date('joindate');

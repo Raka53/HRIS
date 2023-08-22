@@ -13,10 +13,7 @@
         </div>
         <div class="form-group">
             <label for="status">Status Karyawan</label>
-            <input type="text" name="status" id="status" class="form-control" value="{{ $gaji->hrd->status_kry->status }}" readonly>
-        </div>
-        <div class="form-group">
-            <input type="hidden" name="status_id" id="status_id" class="form-control" value="{{ $gaji->hrd->status_id }}" readonly>
+            <input type="text" name="status" id="status" class="form-control" value="{{ $gaji->hrd->statusKry }}" readonly>
         </div>
         <div class="form-group">
             <input type="hidden" name="hrd_id" id="hrd_id" class="form-control" value="{{ $gaji->hrd_id }}" readonly>
@@ -68,21 +65,29 @@
 </div>
 
 <script>
+
+
     // Fetch HRD data as JSON using AJAX
     fetch('/hrdJsonEdit/{{ $gaji->hrd->id }}')
         .then(response => response.json())
         .then(hrdData => {
             const hrdSelect = document.getElementById('nama_karyawan');
             const statusInput = document.getElementById('status');
-            const status_idInput = document.getElementById('status_id');
             const sewaInput = document.getElementById('sewa');
             const startDateMedicalInput = document.getElementById('start_date_medical');
             const endDateMedicalInput = document.getElementById('end_date_medical');
             const totalMedicalClaimInput = document.getElementById('total_medical_claim');
 
             // Set the selected HRD based on the existing data
-            hrdSelect.value = hrdData.name;
-
+            if (hrdData.statusKry === '1') {
+            statusInput.value = 'Tetap';
+        } else if (hrdData.statusKry === '2') {
+            statusInput.value = 'Probation';
+        } else if (hrdData.statusKry === '3') {
+            statusInput.value = 'Resign';
+        } else {
+            statusInput.value = '';
+        }
             // Function to calculate the total based on the entered values in the form
             function calculateTotal() {
                 const salary = parseFloat(document.getElementById('salary').value);
@@ -91,12 +96,12 @@
                 const meals = parseFloat(document.getElementById('meals').value);
                 const totalMedicalClaim = parseFloat(document.getElementById('total_medical_claim').value);
                 const sewa = parseFloat(document.getElementById('sewa').value); // Include Sewa in the calculation
-                const status_id = document.getElementById('status_id').value;
+                const status = document.getElementById('status').value;
 
                 let total = salary + lembur + transport + meals + totalMedicalClaim + sewa;
 
                 // Adjust the salary if status_id is 2
-                if (status_id === '1') {
+                if (status === 'Probation') {
                     total -= salary * 0.1; // Reduce the total by 10% of the salary
                 }
 

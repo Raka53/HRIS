@@ -18,7 +18,7 @@ class dataController extends Controller
 {
     public function datakry()
     {
-        $data = hrd::orderBy('name','asc')->with('status_kry');
+        $data = hrd::orderBy('name','asc')->get();
            
         return DataTables::of($data)
         ->addIndexColumn()

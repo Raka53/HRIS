@@ -3,6 +3,9 @@
 <div class="d-flex justify-content-center align-items-center">
   <h1 class="text-center cool-title">Data Karyawan</h1>
 </div>
+<div class="">
+  <button id="export-button">Export to Excel</button>
+</div>
 
 <div class="table-responsive col-lg-12">
   
@@ -42,7 +45,21 @@
       { data: 'gender', name: 'gender' },
       { data: 'department', name: 'department' },
       { data: 'jobtitle', name: 'jobtitle' },
-      { data: 'status_kry.status', name: 'status_kry.status' },
+      { 
+        data: 'statusKry', 
+        name: 'statusKry', 
+        render: function(data, type, row) {
+          if (data === '1') {
+            return 'Tetap';
+          } else if (data === '2') {
+            return 'Probation';
+          } else if (data === '3') {
+            return 'Resign';
+          } else {
+            return 'Unknown';
+          }
+        }
+      },
       { data: 'aksi', name: 'aksi', orderable: false, searchable: false }
     ]
   });
@@ -89,6 +106,10 @@
     });
   });
 });
+
+$('#export-button').on('click', function () {
+        window.location.href = '{{ route("export.kry") }}';
+    });
 
 </script>
 @endsection

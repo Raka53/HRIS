@@ -44,7 +44,7 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('datakaryawan', [dataController::class, 'datakry'])->name('datakaryawan.datakry');
     Route::get('datakaryawanAjax', [hrdController::class, 'index'])->name('datakaryawanAjax.index');
-    
+    Route::get('datakaryawanAjax/export/excel', [hrdController::class, 'exportExcel'])->name('export.kry');
 
     Route::get('datakandidat', [dataController::class, 'datakdt'])->name('datakaryawan.datakdt');
     Route::get('datakandidat/{id}/edit', [KandidatController::class, 'edit'])->name('datakandidat.edit');

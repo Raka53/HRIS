@@ -33,7 +33,7 @@ class HrdFactory extends Factory
             'department' => $this->faker->randomElement($department),
             'joblevel' => $this->faker->jobTitle,
             'jobtitle' => $this->faker->randomElement($jobtitle),
-            'status_id' => $this->faker->randomElement([1, 2, 3]),
+            'statusKry' => $this->faker->randomElement([1, 2, 3]),
             'foto' => null,
         ];
     

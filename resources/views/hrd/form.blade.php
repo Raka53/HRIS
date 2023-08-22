@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Tambah Data Karyawan') }} <a href="/datakaryawan" class="btn btn-secondary float-right">{{ __('Kembali') }}</a>
+                <div class="card-header">{{ __('Tambah Data Karyawan') }} <a href="{{ route('datakaryawanAjax.index') }}" class="btn btn-secondary float-right">{{ __('Kembali') }}</a>
                 </div>
 
                 <div class="card-body">
@@ -85,9 +85,11 @@
                             <label for="status_id" class="form-label">{{ __('Status') }}</label>
                             <select class="form-control select2" name="status_id" id="status_id" value="{{ old('status') }}">
                                 <option value="">Pilih Status</option>
-                                @foreach ($status as $item)
-                                    <option value="{{ $item->id }}">{{ $item->status }}</option>
-                                @endforeach
+    
+                                    <option value="1">Tetap</option>
+                                    <option value="2">Probahation</option>
+                                    <option value="3">Resign</option>
+                               
                             </select>
                             @error('hrd_id')
                                 <small class="text-danger">{{ $message }}</small>

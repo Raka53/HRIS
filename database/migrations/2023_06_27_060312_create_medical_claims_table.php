@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('hrd_id');
             $table->foreign('hrd_id')->references('id')->on('hrd');
-            $table->string('status_id');
             $table->date('date_claim');
             $table->date('date');
             $table->string('patient');

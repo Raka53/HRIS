@@ -1,15 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\hrd;
 use App\Models\gaji;
 use App\Models\medical;
-use App\Models\sewaKendaraan;
-use App\Models\status_kry;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
+use App\Models\sewaKendaraan;
+use App\Exports\ExportKaryawan;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+
+
 class hrdController extends Controller
 {
     /**
@@ -19,6 +22,11 @@ class hrdController extends Controller
     {
       return view('hrd.index');
     }
+    public function exportExcel()
+    {
+        return Excel::download(new ExportKaryawan, "datakaryawan.xlsx");
+    }
+  
     
 
     /**
@@ -26,7 +34,7 @@ class hrdController extends Controller
      */
     public function create()
     {
-        $status = status_kry::all();
+        $status = hrd::all();
         return view('hrd.form', compact('status'));
     }
 
@@ -45,7 +53,7 @@ class hrdController extends Controller
             
             'joblevel' => 'required',
             'jobtitle' => 'required',
-            'status' => 'required',
+            'statusKry' => 'required',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             
             // Tambahkan validasi untuk field lainnya
@@ -102,7 +110,7 @@ class hrdController extends Controller
             'department' => 'required',
             'joblevel' => 'required',
             'jobtitle' => 'required',
-            'status_id' => 'required',
+            'statusKry' => 'required',
             // Tambahkan validasi untuk field lainnya
         ],[
             'name.required' => 'Nama wajib diisi',

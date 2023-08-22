@@ -4,11 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Gaji;
 use App\Models\Hrd;
-use App\Models\status_kry;
-use App\Models\medical;
-use App\Models\sewaKendaraan;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Yajra\DataTables\DataTables;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\JsonResponse;
@@ -53,7 +49,7 @@ class GajiController extends Controller
     }
     public function hrdJson()
     {
-        $hrd = Hrd::WheredoesntHave('Gaji')->with('sewa','medical','status_kry')->get(); // Change this to fetch only necessary fields if there are many columns
+        $hrd = Hrd::WheredoesntHave('Gaji')->with('sewa','medical')->get(); // Change this to fetch only necessary fields if there are many columns
         return new JsonResponse($hrd);
     }
     /**
@@ -91,7 +87,7 @@ class GajiController extends Controller
         // Save the Gaji record to the database
         $gaji->save();
     
-        // Redirect back to the index page or show a success message
+        Alert::success('Success', 'Data Gaji berhasil ditambah.')->persistent(true);
         return redirect()->route('gajiAjax.index')->with('success', 'Gaji successfully added!');
     }
     
@@ -114,7 +110,7 @@ class GajiController extends Controller
     }
     public function hrdJsonEdit($id)
     {
-        $hrd = Hrd::with(['sewa', 'medical', 'status_kry'])
+        $hrd = Hrd::with(['sewa', 'medical'])
             ->where('id', $id)
             ->first();
 

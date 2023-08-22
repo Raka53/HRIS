@@ -9,9 +9,6 @@
             <div class="form-group">
                 <input type="hidden" name="hrd_id" id="hrd_id" class="form-control" value="{{ $id->id }}" readonly>
             </div>
-            <div class="form-group">
-                <input type="hidden" name="status_id" id="status_id" class="form-control" value="{{ $id->status_id }}" readonly>
-            </div>
 
             <div class="form-group">
                 <label for="date_claim">Claim Date</label>

@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
     {
         
          hrd::factory(10)->create();
-         status_kry::factory(3)->create();
          $this->call(UserRoleSeeder::class);
 
       

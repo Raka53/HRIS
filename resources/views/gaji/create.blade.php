@@ -20,9 +20,6 @@
             <label for="status">Status Karyawan</label>
             <input type="text" name="status" id="status" class="form-control" readonly>
         </div>
-        <div class="form-group">    
-            <input type="hidden" name="status_id" id="status_id" class="form-control" readonly>
-        </div>
         
         <div class="form-group">
             <label for="start_date_medical">Start Date Medical</label>
@@ -78,7 +75,6 @@
             const hrdSelect = document.getElementById('hrd.nama');
             const hrd_idInput = document.getElementById('hrd_id');
             const statusInput = document.getElementById('status');
-            const status_idInput = document.getElementById('status_id');
             const sewaInput = document.getElementById('sewa');
             const startDateMedicalInput = document.getElementById('start_date_medical');
             const endDateMedicalInput = document.getElementById('end_date_medical');
@@ -104,9 +100,22 @@
                 hrd_idInput.value = selectedHrd ? selectedHrd.id : '';
                 // Set the value of the status input to the status of the selected HRD
                 
-                statusInput.value = selectedHrd ? selectedHrd.status_kry.status : '';
+                if (selectedHrd) {
+                    if (selectedHrd.statusKry === '1') {
+                        statusInput.value = 'Tetap';
+                    } else if (selectedHrd.statusKry === '2') {
+                        statusInput.value = 'Probation';
+                    } else if (selectedHrd.statusKry === '3') {
+                        statusInput.value = 'Resign';
+                    } else {
+                        statusInput.value = '';
+                    }
+                } else {
+                    statusInput.value = '';
+                }
 
-                status_idInput.value = selectedHrd ? selectedHrd.status_kry.id : '';
+
+               
 
                 const sewaValue = selectedHrd && selectedHrd.sewa ? parseFloat(selectedHrd.sewa.harga_sewa) : 0;
                 sewaInput.value = isNaN(sewaValue) ? 0 : sewaValue;
@@ -175,12 +184,12 @@
                 const meals = parseFloat(document.getElementById('meals').value);
                 const totalMedicalClaim = parseFloat(document.getElementById('total_medical_claim').value);
                 const sewa = parseFloat(document.getElementById('sewa').value); // Include Sewa in the calculation
-                const status_id = document.getElementById('status_id').value;
+                const status = document.getElementById('status').value;
 
                 let total = salary + lembur + transport + meals + totalMedicalClaim + sewa;
 
-                    // Adjust the salary if status_id is 2
-                    if (status_id === '2') {
+                    // Adjust the salary if statusKry is 2
+                    if (status === 'Probation') {
                         total -= salary * 0.1; // Reduce the total by 10% of the salary
                     }
 
@@ -193,6 +202,7 @@
 
                 // Set the value of the total and salary input fields to the calculated values
                 document.getElementById('total').value = total.toFixed(2);
+                console.log(status)
                 
             }
                
@@ -210,9 +220,21 @@
                                         const selectedHrd = data.find(hrd => hrd.name === selectedHrdName);
 
                                         // Set the value of the status input to the status of the selected HRD
-                                        statusInput.value = selectedHrd ? selectedHrd.status_kry.status : '';
+                                        if (selectedHrd) {
+                                                if (selectedHrd.statusKry === '1') {
+                                                    statusInput.value = 'Tetap';
+                                                } else if (selectedHrd.statusKry === '2') {
+                                                    statusInput.value = 'Probation';
+                                                } else if (selectedHrd.statusKry === '3') {
+                                                    statusInput.value = 'Resign';
+                                                } else {
+                                                    statusInput.value = '';
+                                                }
+                                            } else {
+                                                statusInput.value = '';
+                                            }
 
-                                        status_idInput.value = selectedHrd ? selectedHrd.status_kry.id : '';
+                                        
 
                                         // Set the value of the sewa input to the initial sewa value if sewa is available, otherwise set to 0
                                         const sewaValue = selectedHrd && selectedHrd.sewa ? parseFloat(selectedHrd.sewa.harga_sewa) : 0;

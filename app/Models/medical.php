@@ -37,8 +37,4 @@ class medical extends Model
     {
         return $this->belongsTo(medical::class, 'medical_id');
     }
-    public function status_kry()
-    {
-        return $this->belongsTo(status_kry::class, 'status_id');
-    }
 }

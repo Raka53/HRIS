@@ -15,10 +15,6 @@ class hrd extends Model
     {
         return $this->hasOne(gaji::class);
     }
-    public function status_kry()
-    {
-        return $this->belongsTo(status_kry::class, 'status_id');
-    }
     public function sewa()
     {
         return $this->hasOne(sewaKendaraan::class, 'hrd_id');

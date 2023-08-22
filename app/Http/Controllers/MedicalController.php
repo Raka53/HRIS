@@ -23,14 +23,7 @@ class MedicalController extends Controller
         
     }
   
-    // public function getTotalClaim(Request $request)
-    // {
-    //     $claimTotal = medical::where('date_claim', '>',$a)->where('date_claim','<', $b)->where('hrd_id',$request->id)
-    // }
-
-    /**
-     * Show the form for creating a new resource.
-     */
+  
     public function create(hrd $id)
     {
         $medicalClaim = medical::where('hrd_id', $id->id)->get();
@@ -47,7 +40,6 @@ class MedicalController extends Controller
         
         $request->validate([
             'hrd_id' => 'required',
-            'status_id' => 'required',
             'patient' => 'required',
             'date' => 'required|date',
             'date_claim' => 'required',
@@ -67,7 +59,6 @@ class MedicalController extends Controller
             }
         medical::create([
         'hrd_id' => $request->hrd_id,
-        'status_id' => $request->status_id,
         'patient' => $request->patient,
         'date_claim' => $request->date_claim,
         'date' => $request->date,
@@ -129,7 +120,7 @@ class MedicalController extends Controller
     {
         $request->validate([
             'hrd_id' => 'required',
-            'status_id' => 'required',
+            'statusKry' => 'required',
             'patient' => 'required',
             'date' => 'required|date',
             'date_claim' => 'required',
@@ -155,7 +146,6 @@ class MedicalController extends Controller
     
             $medical->update([
                 'hrd_id' => $request->hrd_id,
-                'status_id' => $request->status_id,
                 'patient' => $request->patient,
                 'date_claim' => $request->date_claim,
                 'date' => $request->date,
@@ -168,7 +158,6 @@ class MedicalController extends Controller
         } else {
             $medical->update([
                 'hrd_id' => $request->hrd_id,
-                'status_id' => $request->status_id,
                 'patient' => $request->patient,
                 'date_claim' => $request->date_claim,
                 'date' => $request->date,
