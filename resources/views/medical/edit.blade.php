@@ -11,35 +11,43 @@
                 <input type="hidden" name="hrd_id" id="hrd_id" class="form-control" value="{{ $medical->hrd_id }}" readonly>
             </div>
             <div class="form-group">
-                <input type="hidden" name="status_id" id="status_id" class="form-control" value="{{ $medical->status_id }}" readonly>
+                <input type="hidden" name="status_id" id="status_id" class="form-control" value="{{ $medical->status_id }}"
+                    readonly>
             </div>
             <div class="form-group">
                 <label for="patient">Patient Name</label>
-                <input type="text" name="patient" id="patient" class="form-control" value="{{ $medical->patient }}" required pattern="[A-Za-z\s]+" title="Patient name tidak boelh ada angka">
+                <input type="text" name="patient" id="patient" class="form-control" value="{{ $medical->patient }}"
+                    required pattern="[A-Za-z\s]+" title="Patient name tidak boelh ada angka">
             </div>
             <div class="form-group">
                 <label for="date_claim">Claim Date</label>
-                <input type="date" name="date_claim" id="date_claim" class="form-control" value="{{ $medical->date_claim }}" required>
+                <input type="date" name="date_claim" id="date_claim" class="form-control"
+                    value="{{ $medical->date_claim }}" required>
             </div>
             <div class="form-group">
                 <label for="date">Date</label>
-                <input type="date" name="date" id="date" class="form-control" value="{{ $medical->date }}" required>
+                <input type="date" name="date" id="date" class="form-control" value="{{ $medical->date }}"
+                    required>
             </div>
             <div class="form-group">
                 <label for="doctor_fee">Doctor Fee</label>
-                <input type="number" name="doctor_fee" id="doctor_fee" class="form-control" value="{{ $medical->doctor_fee }}" required>
+                <input type="number" name="doctor_fee" id="doctor_fee" class="form-control"
+                    value="{{ $medical->doctor_fee }}" required>
             </div>
             <div class="form-group">
                 <label for="obat">Obat</label>
-                <input type="number" name="obat" id="obat" class="form-control" value="{{ $medical->obat }}" required>
+                <input type="number" name="obat" id="obat" class="form-control" value="{{ $medical->obat }}"
+                    required>
             </div>
             <div class="form-group">
                 <label for="kacamata">Kacamata</label>
-                <input type="number" name="kacamata" id="kacamata" class="form-control" value="{{ $medical->kacamata }}" required>
+                <input type="number" name="kacamata" id="kacamata" class="form-control" value="{{ $medical->kacamata }}"
+                    required>
             </div>
             <div class="form-group">
                 <label for="total">Total</label>
-                <input type="number" name="total" id="total" class="form-control" value="{{ $medical->Total }}" readonly>
+                <input type="number" name="total" id="total" class="form-control" value="{{ $medical->Total }}"
+                    readonly>
             </div>
             <div class="form-group">
                 <label for="foto">Upload Foto</label>
@@ -82,7 +90,7 @@
             let total = (doctorFee + obat + kacamata) * 0.8;
 
             // Round the total to two decimal places
-            total = total.toFixed(2);
+            total = total;
 
             // Update the total field value
             totalField.value = total;
