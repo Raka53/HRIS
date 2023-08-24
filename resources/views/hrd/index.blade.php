@@ -1,15 +1,16 @@
 @extends('template.main')
 @section('content')
-<div class="d-flex justify-content-center align-items-center">
+<div class="d-flex justify-content-between align-items-center">
   <h1 class="text-center cool-title">Data Karyawan</h1>
+  <button id="export-button" class="btn btn-secondary ml-auto">Export to Excel</button>
 </div>
-<div class="">
-  <button id="export-button">Export to Excel</button>
-</div>
+
+
 
 <div class="table-responsive col-lg-12">
   
   <a class="btn btn-primary mb-3 cool-button" href="{{ route('datakaryawanAjax.create') }}">Tambah Data</a>
+ 
 
   <table class="table table-bordered data-table" id="myTable">
     <thead>

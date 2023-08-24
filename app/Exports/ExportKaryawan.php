@@ -12,8 +12,8 @@ class ExportKaryawan implements FromCollection, WithHeadings
     */
     public function collection()
     {
+        
         return hrd::orderBy('name', 'asc')
-            ->with('status_kry')
             ->select('NIK', 'name', 'gender', 'department', 'jobtitle') // Menghapus 'status_id'
             ->get();
            
@@ -27,7 +27,7 @@ class ExportKaryawan implements FromCollection, WithHeadings
             'Gender',
             'Department',
             'Job Title',
-            'Status',
+            
         ];
     }
 }

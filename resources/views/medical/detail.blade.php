@@ -30,23 +30,55 @@
     </div>
 
     <script src="{{ asset('js/jquery2.js') }}"></script>
-    
+
     <script>
         $(document).ready(function() {
             $('#medicalClaimTable').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('medical.detail.data', $medical->id) }}",
-                columns: [
-                    { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                    { data: 'patient', name: 'patient' },
-                    { data: 'date_claim', name: 'date_claim' },
-                    { data: 'date', name: 'date' },
-                    { data: 'doctor_fee', name: 'doctor_fee' },
-                    { data: 'obat', name: 'obat' },
-                    { data: 'kacamata', name: 'kacamata' },
-                    { data: 'Total', name: 'total' },
-                    { data: 'action', name: 'action', orderable: false, searchable: false },
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'patient',
+                        name: 'patient'
+                    },
+                    {
+                        data: 'date_claim',
+                        name: 'date_claim'
+                    },
+                    {
+                        data: 'date',
+                        name: 'date'
+                    },
+                    {
+                        data: 'doctor_fee',
+                        name: 'doctor_fee',
+                        render: $.fn.dataTable.render.number('.', '.', 2)
+                    },
+                    {
+                        data: 'obat',
+                        name: 'obat',
+                        render: $.fn.dataTable.render.number('.', '.', 2)
+                    },
+                    {
+                        data: 'kacamata',
+                        name: 'kacamata',
+                        render: $.fn.dataTable.render.number('.', '.', 2)
+                    },
+                    {
+                        data: 'Total',
+                        name: 'total',
+                        render: $.fn.dataTable.render.number('.', '.', 2)
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
                 ],
             });
 

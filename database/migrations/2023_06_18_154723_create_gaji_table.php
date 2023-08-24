@@ -15,15 +15,15 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('hrd_id');
             $table->foreign('hrd_id')->references('id')->on('hrd');
-            $table->string('harga_sewa');
-            $table->float('salary');
+            $table->decimal('harga_sewa', 15, 2); // Example: up to 9999999999999.99
+            $table->decimal('salary', 15, 2);
             $table->date('start_date_medical');
             $table->date('end_date_medical');
-            $table->float('lembur');
-            $table->float('total_medical_claim');
-            $table->float('transport');
-            $table->float('meals');
-            $table->float('total')->default(0);
+            $table->decimal('lembur', 15, 2);
+            $table->decimal('total_medical_claim', 15, 2);
+            $table->decimal('transport', 15, 2);
+            $table->decimal('meals', 15, 2);
+            $table->decimal('total', 15, 2)->default(0);
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });

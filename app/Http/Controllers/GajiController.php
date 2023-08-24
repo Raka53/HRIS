@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Gaji;
+use App\Exports\ExportGaji;
 use App\Models\Hrd;
+use App\Models\Gaji;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\JsonResponse;
+use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat\Wizard\Currency;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class GajiController extends Controller
 {
@@ -15,10 +18,10 @@ class GajiController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {   
+    {
         if ($request->ajax()) {
             $latestDataIds = Gaji::groupBy('hrd_id')->selectRaw('MAX(id) as id')->pluck('id'); // Ambil ID terbaru dari setiap entri
-        
+
             $data = Gaji::with(['hrd', 'sewa', 'medical'])
                 ->whereIn('id', $latestDataIds) // Filter data berdasarkan ID terbaru
                 ->orderBy('updated_at', 'desc')
@@ -27,15 +30,20 @@ class GajiController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $editUrl = route('gajiAjax.edit', $row->id);
-                    
+
                     $btn = '<a href="' . $editUrl . '" class="btn btn-primary btn-sm">Update</a>';
                     return $btn;
                 })
+
                 ->rawColumns(['action'])
                 ->make(true);
         }
 
         return view('gaji.index');
+    }
+    public function exportExcel()
+    {
+        return Excel::download(new ExportGaji, "gaji.xlsx");
     }
 
     /**
@@ -43,7 +51,7 @@ class GajiController extends Controller
      */
     public function create(Request $request)
     {
-       
+
         return view('gaji.create');
 
     }
@@ -66,11 +74,11 @@ class GajiController extends Controller
             'total_medical_claim' => 'required|numeric|min:0',
             'transport' => 'required|numeric|min:0',
             'meals' => 'required|numeric|min:0',
-            'total' => 'required|numeric|min:0',
+            'total' => 'required',
             'start_date_medical' => 'required',
             'end_date_medical' => 'required',
         ]);
-    
+
         // Create a new Gaji record with the form data
         $gaji = new Gaji();
         $gaji->salary = $request->salary;
@@ -83,14 +91,14 @@ class GajiController extends Controller
         $gaji->transport = $request->transport;
         $gaji->meals = $request->meals;
         $gaji->total = $request->total;
-    
+
         // Save the Gaji record to the database
         $gaji->save();
-    
+
         Alert::success('Success', 'Data Gaji berhasil ditambah.')->persistent(true);
         return redirect()->route('gajiAjax.index')->with('success', 'Gaji successfully added!');
     }
-    
+
 
     /**
      * Display the specified resource.
@@ -123,7 +131,7 @@ class GajiController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            
+
             'sewa' => 'required|numeric|min:0',
             'salary' => 'required|numeric|min:0',
             'lembur' => 'required|numeric|min:0',
@@ -137,9 +145,9 @@ class GajiController extends Controller
 
         $gaji = new Gaji(); // Add a semicolon here
 
-      
+
         $gaji->salary = $request->input('salary');
-        $gaji->hrd_id = $request->input('hrd_id'); 
+        $gaji->hrd_id = $request->input('hrd_id');
         $gaji->harga_sewa = $request->input('sewa');
         $gaji->lembur = $request->input('lembur');
         $gaji->total_medical_claim = $request->input('total_medical_claim');
@@ -149,9 +157,9 @@ class GajiController extends Controller
         $gaji->start_date_medical = $request->input('start_date_medical');
         $gaji->end_date_medical = $request->input('end_date_medical');
         $gaji->save();
-    
+
         Alert::success('Success', 'Data gaji berhasil diperbarui.')->persistent(true);
-    
+
         return redirect()->route('gajiAjax.index');
     }
     public function cari(Request $request)
@@ -169,6 +177,6 @@ class GajiController extends Controller
      */
     public function destroy($id)
     {
-      
+
     }
 }
