@@ -26,7 +26,10 @@
     <link href="{{ asset('layouts/css/button.css') }}" rel="stylesheet">
     <link href="{{ asset('layouts/css/efekkata.css') }}" rel="stylesheet">
     <!-- Include SweetAlert CSS -->
-    <link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert2.min.css') }}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+
 
 
 

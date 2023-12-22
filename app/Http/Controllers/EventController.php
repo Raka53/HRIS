@@ -36,34 +36,43 @@ class EventController extends Controller
   }
   public function store(Request $request)
   {
-      $request->validate([
-          'title' => 'required|string',
-          'rs' => 'required|string'
-      ]);
+    $request->validate([
+        'title' => 'string',
+        'province' => 'string',
+        'rs' => 'string',
+        'department' => 'string',
+        'task' => 'string',
+        'start_date' => 'date_format:Y-m-d H:i:s',
+        'end_date' => 'date_format:Y-m-d H:i:s|after_or_equal:start_date'
+    ]);
 
-      $booking = event::create([
-          'title' => $request->title,
-          'rs' => $request->rs,
-          'start_date' => $request->start_date,
-          'end_date' => $request->end_date,
-      ]);
+    $color = null;
+    if ($request->title == 'Test') {
+        $color = '#924ACE';
+    }
 
-      $color = null;
+    $booking = Event::create([
+        'title' => $request->title,
+        'province' => $request->province,
+        'rs' => $request->rs,
+        'department' => $request->department,
+        'task' => $request->task,
+        'start_date' => $request->start_date,
+        'end_date' => $request->end_date,
+    ]);
 
-      if($booking->title == 'Test') {
-          $color = '#924ACE';
-      }
-
-      return response()->json([
-          'id' => $booking->id,
-          'start' => $booking->start_date,
-          'end' => $booking->end_date,
-          'title' => $booking->title,
-          'rs' => $booking->rs,
-          'color' => $color ? $color: '',
-
-      ]);
-  }
+    return response()->json([
+        'id' => $booking->id,
+        'start' => $booking->start_date,
+        'end' => $booking->end_date,
+        'title' => $booking->title,
+        'province' => $booking->province,
+        'rs' => $booking->rs,
+        'department' => $booking->department,
+        'task' => $booking->task,
+        'color' => $color ?: '',
+    ]);
+}
   public function update(Request $request ,$id)
   {
     $booking = Event::find($id);
@@ -82,7 +91,7 @@ class EventController extends Controller
         'department' => ['string','sometimes'],
         'task' => ['string','sometimes'],
         'start_date' => 'date_format:Y-m-d H:i:s',
-    'end_date' => 'date_format:Y-m-d H:i:s|after_or_equal:start_date'
+        'end_date' => 'date_format:Y-m-d H:i:s|after_or_equal:start_date'
     ]);
 
     $booking->update([
